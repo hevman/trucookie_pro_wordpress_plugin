@@ -1,0 +1,1412 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: TruCookie CMP 0.1.0\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: custom generate-pot.php\n"
+"X-Domain: trucookie-cmp-consent-mode-v2\n"
+
+#: includes/Traits/AdminPageTrait.php:1040
+msgid "API key"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:984
+msgid "API key invalid"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:158
+msgid "Ablehnen"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:106
+#: includes/Traits/AdminPageTrait.php:89
+msgid "Accept"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:225
+#: includes/Traits/AdminPageTrait.php:242
+msgid "Accepter"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:259
+#: includes/Traits/AdminPageTrait.php:276
+msgid "Accetta"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:293
+#: includes/Traits/AdminPageTrait.php:310
+msgid "Aceitar"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:191
+#: includes/Traits/AdminPageTrait.php:208
+msgid "Aceptar"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:95
+msgid "Ads"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:113
+msgid "Ads / remarketing (Google)."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1417
+msgid "Advanced (best-effort)"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:96
+msgid "Advertising / remarketing (Google)."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1683
+msgid "Agencies and multi-site teams"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1649
+#: includes/Traits/AdminPageTrait.php:1663
+msgid "Agency"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1505
+msgid "Agency plan"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:123
+#: includes/Traits/AdminPageTrait.php:140
+msgid "Akceptuj"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:157
+#: includes/Traits/AdminPageTrait.php:174
+msgid "Akzeptieren"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1236
+msgid "Allows dashboard verification without editing theme files."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:263
+#: includes/Traits/AdminPageTrait.php:280
+msgid "Analisi"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:127
+#: includes/Traits/AdminPageTrait.php:144
+msgid "Analityka"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:161
+#: includes/Traits/AdminPageTrait.php:178
+msgid "Analysen"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:110
+#: includes/Traits/AdminPageTrait.php:93
+msgid "Analytics"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:229
+#: includes/Traits/AdminPageTrait.php:246
+msgid "Analytique"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:195
+#: includes/Traits/AdminPageTrait.php:212
+msgid "Analítica"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:265
+msgid "Annunci"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1413
+msgid "Anonymous choice signals visible in your dashboard."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:197
+msgid "Anuncios"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:297
+#: includes/Traits/AdminPageTrait.php:314
+msgid "Análise"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:299
+msgid "Anúncios"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1472
+#: includes/Traits/AdminPageTrait.php:966
+msgid "Audit"
+msgstr ""
+
+#: includes/Traits/AdminActionsBannerTrait.php:104
+msgid "Audit failed: %s"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1637
+msgid "Audit limit health"
+msgstr ""
+
+#: includes/Traits/AdminActionsBannerTrait.php:103
+msgid "Audit queued."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1111
+#: includes/Traits/AdminPageTrait.php:1610
+#: includes/Traits/AdminPageTrait.php:1623
+#: includes/Traits/AdminPageTrait.php:1635
+msgid "Audits"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1321
+#: includes/Traits/AdminPageTrait.php:1434
+msgid "Auto"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1381
+msgid "Auto adapt to dark mode"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1403
+msgid "Auto-blocker"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1244
+msgid "Auto-sync settings and status from the dashboard"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1371
+msgid "Background color"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1255
+#: includes/Traits/AdminPageTrait.php:965
+msgid "Banner"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1126
+msgid "Banner config"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1427
+#: includes/Traits/AdminPageTrait.php:1438
+#: includes/Traits/AdminPageTrait.php:1442
+msgid "Banner preview"
+msgstr ""
+
+#: includes/Traits/AdminActionsBannerTrait.php:339
+msgid "Banner pulled from dashboard."
+msgstr ""
+
+#: includes/Traits/AdminActionsBannerTrait.php:424
+msgid "Banner saved to dashboard."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1359
+msgid "Bar"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1680
+msgid "Best for"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1406
+msgid "Best when the snippet is placed in <code>&lt;head&gt;</code> before trackers."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1225
+msgid "Best-effort: some themes/plugins may still load tags earlier."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1387
+msgid "Buttons"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1691
+msgid "Buy Agency"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1690
+msgid "Buy Starter"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1219
+msgid "CMP snippet"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:203
+#: includes/Traits/AdminPageTrait.php:220
+msgid "Cerrar"
+msgstr ""
+
+#: includes/Traits/AdminActionsBannerTrait.php:78
+msgid "Check failed: %s"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1187
+msgid "Check snippet"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1548
+msgid "Checks"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:271
+#: includes/Traits/AdminPageTrait.php:288
+msgid "Chiudi"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:228
+msgid "Choix de confidentialité"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1591
+msgid "Choose a plan based on volume and audit depth. If you manage client websites, Agency unlocks deep audits and higher monthly limits."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1167
+msgid "Click <strong>Check snippet</strong> to confirm the banner is detected."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1166
+msgid "Click <strong>Verify</strong> to confirm your site."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1024
+msgid "Click Verify and Check snippet to confirm installation."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:101
+#: includes/Traits/AdminPageTrait.php:118
+msgid "Close"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1351
+msgid "Compact"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1689
+msgid "Compare plans"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:211
+msgid "Configuración de cookies"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:313
+msgid "Configurações de cookies"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1257
+msgid "Configure the cookie banner here or in the dashboard. Use Pull/Save to sync settings (best-effort)."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1049
+msgid "Connect"
+msgstr ""
+
+#: includes/Traits/AdminActionsBannerTrait.php:21
+msgid "Connect failed: %s"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1515
+msgid "Connect with an API key to view audit results and recommendations inside WordPress."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1096
+#: includes/Traits/AdminPageTrait.php:982
+msgid "Connected"
+msgstr ""
+
+#: includes/Traits/AdminActionsBannerTrait.php:20
+msgid "Connected."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1410
+msgid "Consent telemetry"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1325
+msgid "Controls which button labels and privacy options are shown (EU vs US). Auto uses best-effort detection."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:115
+#: includes/Traits/AdminPageTrait.php:268
+#: includes/Traits/AdminPageTrait.php:285
+#: includes/Traits/AdminPageTrait.php:98
+msgid "Cookie Policy"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:274
+msgid "Cookie e privacy"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:109
+msgid "Cookie settings"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:177
+msgid "Cookie-Einstellungen"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:166
+#: includes/Traits/AdminPageTrait.php:183
+msgid "Cookie-Richtlinie"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:104
+msgid "Cookies & privacy"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:308
+msgid "Cookies e privacidade"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:240
+msgid "Cookies et confidentialité"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:138
+msgid "Cookies i prywatność"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:172
+msgid "Cookies und Datenschutz"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:206
+msgid "Cookies y privacidad"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1204
+msgid "Create account"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1036
+msgid "Current WordPress site URL (auto-detected)."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1436
+msgid "Dark"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1375
+msgid "Dark mode"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:160
+msgid "Datenschutz-Einstellungen"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:167
+#: includes/Traits/AdminPageTrait.php:184
+msgid "Datenschutzerklärung"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1611
+#: includes/Traits/AdminPageTrait.php:1674
+msgid "Deep audit"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1151
+msgid "Deep audit is locked on your current plan. Upgrade to Agency to run headless deep checks."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:165
+#: includes/Traits/AdminPageTrait.php:182
+msgid "Details in der Cookie-Richtlinie."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:114
+#: includes/Traits/AdminPageTrait.php:97
+msgid "Details in the Cookie Policy."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1082
+msgid "Detected"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:267
+#: includes/Traits/AdminPageTrait.php:284
+msgid "Dettagli nella Cookie Policy."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1279
+msgid "Disable banner"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1057
+msgid "Disconnect"
+msgstr ""
+
+#: includes/Traits/AdminActionsBannerTrait.php:182
+msgid "Disconnected."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:159
+#: includes/Traits/AdminPageTrait.php:176
+msgid "Einstellungen"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1362
+msgid "Elegant"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1165
+msgid "Enable <strong>CMP snippet</strong> and <strong>Verification</strong> in the Banner tab."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1405
+msgid "Enable attribute-based unlocking"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1268
+msgid "Enable banner"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1412
+msgid "Enable consent telemetry"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:236
+#: includes/Traits/AdminPageTrait.php:253
+msgid "Enregistrer"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:296
+msgid "Escolhas de privacidade"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:107
+msgid "Essential only"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:243
+msgid "Essentiels uniquement"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1660
+msgid "Feature"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:305
+#: includes/Traits/AdminPageTrait.php:322
+msgid "Fechar"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:237
+#: includes/Traits/AdminPageTrait.php:254
+msgid "Fermer"
+msgstr ""
+
+#: includes/Traits/AdminActionsBannerTrait.php:122
+#: includes/Traits/AdminActionsBannerTrait.php:169
+#: includes/Traits/AdminActionsBannerTrait.php:189
+#: includes/Traits/AdminActionsBannerTrait.php:216
+#: includes/Traits/AdminActionsBannerTrait.php:30
+#: includes/Traits/AdminActionsBannerTrait.php:326
+#: includes/Traits/AdminActionsBannerTrait.php:351
+#: includes/Traits/AdminActionsBannerTrait.php:54
+#: includes/Traits/AdminActionsBannerTrait.php:8
+#: includes/Traits/AdminActionsBannerTrait.php:88
+#: includes/Traits/AdminPageTrait.php:851
+msgid "Forbidden"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1661
+msgid "Free"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1398
+msgid "GA4"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1397
+msgid "GTM"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1019
+msgid "Generate the API key in TruCookie: Profile -> WordPress plugin API key."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1399
+msgid "Google Ads"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:990
+msgid "Google Consent Mode v2 + banner + audits. One dashboard, synced to WordPress."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1394
+msgid "Google IDs (optional)"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1419
+msgid "Google tag blocker/gater (best-effort)"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1682
+msgid "Growing business sites"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:202
+#: includes/Traits/AdminPageTrait.php:219
+msgid "Guardar"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1096
+msgid "Guest"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1671
+msgid "Highest quota"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1396
+msgid "If you set IDs here, the CMP can gate common Google tags after consent (best-effort)."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:155
+msgid "Ihre Datenschutzwahl"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:279
+msgid "Impostazioni cookie"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1022
+msgid "In TruCookie open: Profile and generate API key."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:269
+#: includes/Traits/AdminPageTrait.php:286
+msgid "Informativa sulla privacy"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1223
+msgid "Inject the CMP snippet into <code>&lt;head&gt;</code>"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1233
+msgid "Inject verification meta tag into <code>&lt;head&gt;</code>"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1212
+msgid "Install"
+msgstr ""
+
+#: includes/Traits/AdminActionsBannerTrait.php:149
+msgid "Invalid redirect target."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1247
+msgid "Keeps banner settings and verification status up-to-date without manual Pull/Sync."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1042
+msgid "Key saved - paste a new one to replace"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1304
+msgid "Language"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1535
+msgid "Latest audit"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1518
+msgid "Latest audit: unavailable (try Sync site, then run a light audit)."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:257
+msgid "Le tue scelte sulla privacy"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1435
+msgid "Light"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1668
+msgid "Light audits"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1450
+msgid "Local banner preview"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1669
+msgid "Low quota"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:301
+#: includes/Traits/AdminPageTrait.php:318
+msgid "Mais detalhes na Política de Cookies."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:112
+#: includes/Traits/AdminPageTrait.php:146
+#: includes/Traits/AdminPageTrait.php:180
+#: includes/Traits/AdminPageTrait.php:214
+#: includes/Traits/AdminPageTrait.php:248
+#: includes/Traits/AdminPageTrait.php:282
+#: includes/Traits/AdminPageTrait.php:316
+msgid "Marketing"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:196
+#: includes/Traits/AdminPageTrait.php:213
+msgid "Medición de tráfico (Google Analytics)."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1670
+msgid "Medium quota"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:298
+#: includes/Traits/AdminPageTrait.php:315
+msgid "Medição de tráfego (Google Analytics)."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:230
+#: includes/Traits/AdminPageTrait.php:247
+msgid "Mesure du trafic (Google Analytics)."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:264
+#: includes/Traits/AdminPageTrait.php:281
+msgid "Misurazione del traffico (Google Analytics)."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1095
+msgid "Mode"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1601
+msgid "Monthly limits"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1644
+msgid "Monthly price (from API)"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:199
+#: includes/Traits/AdminPageTrait.php:216
+msgid "Más detalles en la Política de cookies."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1675
+#: includes/Traits/AdminPageTrait.php:1676
+msgid "No"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1520
+msgid "No audits yet. Run a light audit to get your first checklist."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:986
+msgid "Not connected"
+msgstr ""
+
+#: includes/Traits/AdminActionsBannerTrait.php:222
+msgid "Not connected."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1084
+msgid "Not detected"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1072
+msgid "Not verified"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:241
+msgid "Nous utilisons des cookies essentiels pour faire fonctionner le site. Avec votre consentement, nous pouvons aussi utiliser des cookies optionnels pour l’analyse et le marketing. En cliquant sur \"Accepter\", vous acceptez les cookies optionnels décrits dans la Politique de cookies. Vous pouvez modifier vos préférences à tout moment."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:224
+msgid "Nous utilisons des cookies essentiels pour faire fonctionner le site. Vous pouvez choisir si nous pouvons utiliser des cookies optionnels pour l’analyse et la publicité. Vous pouvez modifier vos préférences à tout moment."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:175
+msgid "Nur essenzielle"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1420
+msgid "OFF by default. Attempts to gate common Google tag loads until consent. Not retroactive and not guaranteed."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:124
+msgid "Odrzuć"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1457
+msgid "Offline preview (no dashboard connection). Choices are not saved."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:194
+msgid "Opciones de privacidad"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1486
+#: includes/Traits/AdminPageTrait.php:1694
+msgid "Open billing"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1200
+#: includes/Traits/AdminPageTrait.php:995
+msgid "Open dashboard"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1540
+msgid "Open in dashboard"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:964
+msgid "Overview"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:245
+msgid "Paramètres des cookies"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1042
+msgid "Paste API key"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1023
+msgid "Paste the key below and click Connect."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1099
+msgid "Plan"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1589
+#: includes/Traits/AdminPageTrait.php:967
+msgid "Plans"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:233
+#: includes/Traits/AdminPageTrait.php:250
+msgid "Plus de détails dans la Politique de cookies."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:235
+#: includes/Traits/AdminPageTrait.php:252
+msgid "Politique de confidentialité"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:234
+#: includes/Traits/AdminPageTrait.php:251
+msgid "Politique de cookies"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:132
+#: includes/Traits/AdminPageTrait.php:149
+msgid "Polityka cookies"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:133
+#: includes/Traits/AdminPageTrait.php:150
+msgid "Polityka prywatności"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:302
+#: includes/Traits/AdminPageTrait.php:319
+msgid "Política de Cookies"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:303
+#: includes/Traits/AdminPageTrait.php:320
+msgid "Política de Privacidade"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:200
+#: includes/Traits/AdminPageTrait.php:217
+msgid "Política de cookies"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:201
+#: includes/Traits/AdminPageTrait.php:218
+msgid "Política de privacidad"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:128
+#: includes/Traits/AdminPageTrait.php:145
+msgid "Pomiar ruchu (Google Analytics)."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1329
+msgid "Position"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:108
+#: includes/Traits/AdminPageTrait.php:91
+msgid "Preferences"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:193
+#: includes/Traits/AdminPageTrait.php:210
+msgid "Preferencias"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:125
+#: includes/Traits/AdminPageTrait.php:142
+msgid "Preferencje"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:261
+#: includes/Traits/AdminPageTrait.php:278
+msgid "Preferenze"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:295
+#: includes/Traits/AdminPageTrait.php:312
+msgid "Preferências"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:83
+msgid "Preview"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1455
+msgid "Preview uses the real banner renderer. Choices are not saved."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1367
+msgid "Primary color"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:116
+#: includes/Traits/AdminPageTrait.php:99
+msgid "Privacy Policy"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:87
+#: includes/Traits/AdminPageTrait.php:92
+msgid "Privacy choices"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:227
+#: includes/Traits/AdminPageTrait.php:244
+msgid "Préférences"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:266
+#: includes/Traits/AdminPageTrait.php:283
+msgid "Pubblicità / remarketing (Google)."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:198
+#: includes/Traits/AdminPageTrait.php:215
+msgid "Publicidad / remarketing (Google)."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:300
+#: includes/Traits/AdminPageTrait.php:317
+msgid "Publicidade / remarketing (Google)."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:231
+msgid "Publicité"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:232
+#: includes/Traits/AdminPageTrait.php:249
+msgid "Publicité / remarketing (Google)."
+msgstr ""
+
+#: includes/Traits/AdminActionsBannerTrait.php:341
+msgid "Pull failed: %s"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1287
+msgid "Pull from dashboard"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1173
+msgid "Quick actions"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1017
+msgid "Quick setup"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:192
+msgid "Rechazar"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1564
+msgid "Recommendations"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1049
+msgid "Reconnect"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1361
+msgid "Rectangle (left)"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1360
+msgid "Rectangle (right)"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:226
+msgid "Refuser"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1318
+msgid "Region"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:90
+msgid "Reject"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:294
+msgid "Rejeitar"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:129
+msgid "Reklamy"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:130
+#: includes/Traits/AdminPageTrait.php:147
+msgid "Reklamy / remarketing (Google)."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1629
+msgid "Remaining this month"
+msgstr ""
+
+#: includes/Traits/AdminActionsBannerTrait.php:332
+#: includes/Traits/AdminActionsBannerTrait.php:38
+#: includes/Traits/AdminActionsBannerTrait.php:60
+#: includes/Traits/AdminActionsBannerTrait.php:94
+msgid "Requires API key."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:260
+msgid "Rifiuta"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1474
+msgid "Run a light audit for a quick compliance checklist. Deep audit (Agency) adds headless checks and catches issues that simple scans miss."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1505
+msgid "Run deep audit"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1497
+msgid "Run light audit"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:270
+#: includes/Traits/AdminPageTrait.php:287
+msgid "Salva"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:304
+#: includes/Traits/AdminPageTrait.php:321
+msgid "Salvar"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:100
+#: includes/Traits/AdminPageTrait.php:117
+#: includes/Traits/AdminPageTrait.php:1252
+msgid "Save"
+msgstr ""
+
+#: includes/Traits/AdminActionsBannerTrait.php:426
+msgid "Save failed: %s"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1465
+msgid "Save locally"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1465
+msgid "Save to dashboard"
+msgstr ""
+
+#: includes/Traits/AdminActionsBannerTrait.php:414
+msgid "Saved locally. Connect to sync with the dashboard."
+msgstr ""
+
+#: includes/Traits/AdminActionsBannerTrait.php:209
+msgid "Saved."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:262
+msgid "Scelte sulla privacy"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:169
+#: includes/Traits/AdminPageTrait.php:186
+msgid "Schließen"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1157
+msgid "See Agency"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1137
+msgid "Service"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1389
+msgid "Show decline"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1390
+msgid "Show preferences"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1122
+msgid "Site ID"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1104
+#: includes/Traits/AdminPageTrait.php:1608
+#: includes/Traits/AdminPageTrait.php:1621
+#: includes/Traits/AdminPageTrait.php:1633
+msgid "Sites"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1347
+msgid "Size"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1079
+msgid "Snippet"
+msgstr ""
+
+#: includes/Traits/AdminActionsBannerTrait.php:74
+msgid "Snippet detected."
+msgstr ""
+
+#: includes/Traits/AdminActionsBannerTrait.php:76
+msgid "Snippet not detected yet."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:209
+msgid "Solo esenciales"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:277
+msgid "Solo essenziali"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:311
+msgid "Somente essenciais"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:168
+#: includes/Traits/AdminPageTrait.php:185
+msgid "Speichern"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1350
+msgid "Standard"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1649
+#: includes/Traits/AdminPageTrait.php:1662
+msgid "Starter"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1063
+msgid "Status"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1043
+msgid "Stored in WordPress options. Treat it like a password."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1356
+msgid "Style"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:291
+msgid "Suas escolhas de privacidade"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1240
+msgid "Sync"
+msgstr ""
+
+#: includes/Traits/AdminActionsBannerTrait.php:45
+msgid "Sync failed: %s"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1179
+msgid "Sync site"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1292
+msgid "Synced version:"
+msgstr ""
+
+#: includes/Traits/AdminActionsBannerTrait.php:44
+msgid "Synced."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:131
+#: includes/Traits/AdminPageTrait.php:148
+msgid "Szczegóły znajdziesz w Polityce cookies."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1681
+msgid "Testing / one site"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:111
+#: includes/Traits/AdminPageTrait.php:94
+msgid "Traffic measurement (Google Analytics)."
+msgstr ""
+
+#: trucookie-cmp.php:124
+msgid "TruCookie"
+msgstr ""
+
+#: trucookie-cmp.php:123
+msgid "TruCookie CMP"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1004
+msgid "TruCookie tabs"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:189
+msgid "Tus opciones de privacidad"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:121
+msgid "Twoje wybory prywatności"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:141
+msgid "Tylko niezbędne"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1510
+msgid "Unlock deep audit"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:85
+msgid "Unsaved changes - click \"Save locally\"."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:84
+msgid "Unsaved changes - click \"Save to dashboard\"."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1483
+msgid "Upgrade now"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1156
+msgid "Upgrade plan"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1617
+msgid "Usage"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:207
+msgid "Usamos cookies esenciales para que el sitio funcione. Con tu consentimiento, también podemos usar cookies opcionales para analítica y marketing. Al hacer clic en \"Aceptar\", aceptas las cookies opcionales descritas en la Política de cookies. Puedes cambiar tus preferencias en cualquier momento."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:190
+msgid "Usamos cookies esenciales para que el sitio funcione. Puedes decidir si permites cookies opcionales para analítica y anuncios. Puedes cambiar tus preferencias en cualquier momento."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:309
+msgid "Usamos cookies essenciais para o site funcionar. Com seu consentimento, também podemos usar cookies opcionais para análise e marketing. Ao clicar em \"Aceitar\", você concorda com os cookies opcionais descritos na Política de Cookies. Você pode alterar suas preferências a qualquer momento."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:292
+msgid "Usamos cookies essenciais para o site funcionar. Você pode escolher se permite cookies opcionais para análise e anúncios. Você pode alterar suas preferências a qualquer momento."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:275
+msgid "Usiamo cookie essenziali per far funzionare il sito. Con il tuo consenso possiamo usare anche cookie opzionali per analisi e marketing. Facendo clic su \"Accetta\", accetti i cookie opzionali descritti nella Cookie Policy. Puoi cambiare le preferenze in qualsiasi momento."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:258
+msgid "Usiamo cookie essenziali per far funzionare il sito. Puoi scegliere se permettere cookie opzionali per analisi e annunci. Puoi cambiare le preferenze in qualsiasi momento."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:143
+msgid "Ustawienia cookies"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:126
+msgid "Ustawienia prywatności"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:122
+msgid "Używamy niezbędnych cookies, aby serwis działał. Możesz zdecydować, czy pozwalasz nam na cookies opcjonalne do analityki i reklam. Preferencje możesz zmienić w każdej chwili."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:139
+msgid "Używamy niezbędnych cookies, aby serwis działał. Za Twoją zgodą możemy też używać cookies opcjonalnych do analityki i marketingu. Klikając \"Akceptuj\", zgadzasz się na cookies opcjonalne opisane w Polityce cookies. Preferencje możesz zmienić w każdej chwili."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1067
+#: includes/Traits/AdminPageTrait.php:1229
+msgid "Verification"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1070
+msgid "Verified"
+msgstr ""
+
+#: includes/Traits/AdminActionsBannerTrait.php:228
+msgid "Verified."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1195
+msgid "Verify"
+msgstr ""
+
+#: includes/Traits/AdminActionsBannerTrait.php:229
+msgid "Verify failed: %s"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:162
+#: includes/Traits/AdminPageTrait.php:179
+msgid "Verkehrsmessung (Google Analytics)."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:223
+msgid "Vos choix de confidentialité"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:105
+msgid "We use essential cookies to make our site work. With your consent, we may also use optional cookies for analytics and marketing. By clicking \"Accept\", you agree to optional cookies as described in our Cookie Policy. You can change your preferences at any time."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:88
+msgid "We use essential cookies to make our site work. You can choose whether we can use optional cookies for analytics and ads. You can change your preferences at any time."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1033
+#: includes/Traits/AdminPageTrait.php:1118
+msgid "Website URL"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:163
+msgid "Werbung"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:164
+#: includes/Traits/AdminPageTrait.php:181
+msgid "Werbung / Remarketing (Google)."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1163
+msgid "What to do next"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1383
+msgid "When enabled, the banner switches to a dark surface on dark-mode pages if your background color is the default white."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:173
+msgid "Wir verwenden essenzielle Cookies, damit unsere Website funktioniert. Mit Ihrer Einwilligung können wir auch optionale Cookies für Analysen und Marketing verwenden. Mit Klick auf \"Akzeptieren\" stimmen Sie den in der Cookie-Richtlinie beschriebenen optionalen Cookies zu. Ihre Einstellungen können Sie jederzeit ändern."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:156
+msgid "Wir verwenden essenzielle Cookies, damit unsere Website funktioniert. Sie können entscheiden, ob wir optionale Cookies für Analysen und Werbung zulassen. Ihre Einstellungen können Sie jederzeit ändern."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1677
+msgid "Yes (headless)"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1149
+msgid "You are close to your monthly limit. Upgrade now to avoid blocked audits."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1147
+msgid "You reached a plan limit. Upgrade to keep audits running and avoid gaps."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1479
+msgid "You reached your monthly audit limit. Upgrade now to continue running audits without waiting for reset."
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1597
+msgid "Your current plan"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:135
+#: includes/Traits/AdminPageTrait.php:152
+msgid "Zamknij"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:134
+#: includes/Traits/AdminPageTrait.php:151
+msgid "Zapisz"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1132
+msgid "auto-sync OFF"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1130
+msgid "auto-sync ON"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1647
+#: includes/Traits/AdminPageTrait.php:1648
+msgid "n/a"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1606
+msgid "no"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1179
+#: includes/Traits/AdminPageTrait.php:1187
+#: includes/Traits/AdminPageTrait.php:1195
+#: includes/Traits/AdminPageTrait.php:1234
+#: includes/Traits/AdminPageTrait.php:1245
+#: includes/Traits/AdminPageTrait.php:1287
+#: includes/Traits/AdminPageTrait.php:1497
+msgid "requires API key"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1690
+#: includes/Traits/AdminPageTrait.php:1691
+msgid "requires account"
+msgstr ""
+
+#: includes/Traits/AdminActionsBannerTrait.php:104
+#: includes/Traits/AdminActionsBannerTrait.php:21
+#: includes/Traits/AdminActionsBannerTrait.php:229
+#: includes/Traits/AdminActionsBannerTrait.php:341
+#: includes/Traits/AdminActionsBannerTrait.php:426
+#: includes/Traits/AdminActionsBannerTrait.php:45
+#: includes/Traits/AdminActionsBannerTrait.php:78
+#: includes/Traits/AdminPageTrait.php:1537
+#: includes/Traits/AdminPageTrait.php:1598
+msgid "unknown"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1107
+msgid "upgrade for more"
+msgstr ""
+
+#: includes/Traits/AdminPageTrait.php:1605
+msgid "yes"
+msgstr ""
