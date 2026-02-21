@@ -23,6 +23,10 @@ Main capabilities:
 * Plan and billing shortcuts from WordPress admin
 * Built-in translations for major WordPress locales (en_US, pl_PL, de_DE, es_ES, fr_FR, it_IT, pt_BR)
 
+Scope and non-scope:
+* Scope: advertiser Consent Mode v2 workflows and technical consent signal handling.
+* Not in scope: publisher-certified CMP status and full IAB TCF implementation for AdSense, Ad Manager, or AdMob.
+
 Connected mode:
 * Syncs your site with the dashboard
 * (Optional) injects the CMP snippet into <head>
@@ -46,6 +50,7 @@ When data is sent:
 * When connected mode banner snippet is enabled, front-end loads banner script from TruCookie domain
 
 Service links:
+* Cookie Policy: https://trucookie.pro/cookies
 * Privacy Policy: https://trucookie.pro/privacy
 * Terms: https://trucookie.pro/terms
 
@@ -92,6 +97,9 @@ No. This is best-effort. Theme/plugins can still inject tags earlier. Use the da
 
 = Does it support Google Consent Mode v2? =
 Yes. The plugin supports Google Consent Mode v2 integration and consent state handling.
+
+= Is this a publisher-certified CMP for AdSense/Ad Manager/AdMob? =
+No. This plugin is focused on advertiser Consent Mode workflows and does not provide full IAB TCF publisher CMP certification scope.
 
 = Is this a GDPR cookie consent plugin for WordPress? =
 It is designed for GDPR-oriented cookie consent workflows, including banner setup and policy/audit checks.
