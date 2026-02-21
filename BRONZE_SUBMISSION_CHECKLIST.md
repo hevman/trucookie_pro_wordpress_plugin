@@ -11,6 +11,7 @@ Use this checklist before sending plugin/review updates tied to CMP Bronze scope
 ## Readme Disclosure
 
 - [ ] `Third-party services` section is complete.
+- [ ] Google Business Data Responsibility link is documented in product legal/privacy flow.
 - [ ] Legal links are valid:
   - [ ] `https://trucookie.pro/cookies`
   - [ ] `https://trucookie.pro/privacy`
@@ -36,4 +37,3 @@ Use this checklist before sending plugin/review updates tied to CMP Bronze scope
 - [ ] screenshot: plugin dashboard
 - [ ] screenshot: readme disclosure + scope
 - [ ] output: legal URL checks (`curl -I`)
-
