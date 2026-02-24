@@ -644,8 +644,13 @@ trait SC_AdminPageTrait
                                 </p>
                                 <p style="margin:8px 0 0;">
                                     <?php if ($pricingUrl): ?>
-                                        <a class="button button-primary" href="<?php echo esc_url($this->tracked_upgrade_url($pricingUrl, 'overview_upgrade_plan')); ?>" target="_blank" rel="noreferrer"><?php echo esc_html__('Upgrade plan', 'trucookie-cmp-consent-mode-v2'); ?></a>
-                                        <a class="button" href="<?php echo esc_url($this->tracked_upgrade_url($pricingUrl . '#agency', 'overview_see_agency')); ?>" target="_blank" rel="noreferrer"><?php echo esc_html__('See Agency', 'trucookie-cmp-consent-mode-v2'); ?></a>
+                                        <?php $tUp = $pricingUrl; ?>
+                                        <?php $trkUp = $this->tracked_upgrade_url($tUp, 'overview_upgrade_plan') . '&no_redirect=1'; ?>
+                                        <a class="button button-primary" href="<?php echo esc_url($tUp); ?>" data-sc-track-url="<?php echo esc_url($trkUp); ?>" target="_blank" rel="noreferrer"><?php echo esc_html__('Upgrade plan', 'trucookie-cmp-consent-mode-v2'); ?></a>
+
+                                        <?php $tAgency2 = $pricingUrl . '#agency'; ?>
+                                        <?php $trkAgency2 = $this->tracked_upgrade_url($tAgency2, 'overview_see_agency') . '&no_redirect=1'; ?>
+                                        <a class="button" href="<?php echo esc_url($tAgency2); ?>" data-sc-track-url="<?php echo esc_url($trkAgency2); ?>" target="_blank" rel="noreferrer"><?php echo esc_html__('See Agency', 'trucookie-cmp-consent-mode-v2'); ?></a>
                                     <?php endif; ?>
                                 </p>
                             </div>
@@ -1044,10 +1049,14 @@ trait SC_AdminPageTrait
                     </p>
                     <p style="margin:8px 0 0;">
                         <?php if ($pricingUrl): ?>
-                            <a class="button button-primary" href="<?php echo esc_url($this->tracked_upgrade_url($pricingUrl, 'audit_limit_upgrade')); ?>" target="_blank" rel="noreferrer"><?php echo esc_html__('Upgrade now', 'trucookie-cmp-consent-mode-v2'); ?></a>
+                            <?php $tAuditUp = $pricingUrl; ?>
+                            <?php $trkAuditUp = $this->tracked_upgrade_url($tAuditUp, 'audit_limit_upgrade') . '&no_redirect=1'; ?>
+                            <a class="button button-primary" href="<?php echo esc_url($tAuditUp); ?>" data-sc-track-url="<?php echo esc_url($trkAuditUp); ?>" target="_blank" rel="noreferrer"><?php echo esc_html__('Upgrade now', 'trucookie-cmp-consent-mode-v2'); ?></a>
                         <?php endif; ?>
                         <?php if ($billingUrl): ?>
-                            <a class="button" href="<?php echo esc_url($this->tracked_upgrade_url($billingUrl, 'audit_limit_billing')); ?>" target="_blank" rel="noreferrer"><?php echo esc_html__('Open billing', 'trucookie-cmp-consent-mode-v2'); ?></a>
+                            <?php $tAuditBill = $billingUrl; ?>
+                            <?php $trkAuditBill = $this->tracked_upgrade_url($tAuditBill, 'audit_limit_billing') . '&no_redirect=1'; ?>
+                            <a class="button" href="<?php echo esc_url($tAuditBill); ?>" data-sc-track-url="<?php echo esc_url($trkAuditBill); ?>" target="_blank" rel="noreferrer"><?php echo esc_html__('Open billing', 'trucookie-cmp-consent-mode-v2'); ?></a>
                         <?php endif; ?>
                     </p>
                 </div>
@@ -1071,7 +1080,9 @@ trait SC_AdminPageTrait
                 </form>
 
                 <?php if ($pricingUrl && $connected && !$canDeep): ?>
-                    <a class="button" href="<?php echo esc_url($this->tracked_upgrade_url($pricingUrl . '#agency', 'deep_audit_unlock')); ?>" target="_blank" rel="noreferrer"><?php echo esc_html__('Unlock deep audit', 'trucookie-cmp-consent-mode-v2'); ?></a>
+                    <?php $tDeep = $pricingUrl . '#agency'; ?>
+                    <?php $trkDeep = $this->tracked_upgrade_url($tDeep, 'deep_audit_unlock') . '&no_redirect=1'; ?>
+                    <a class="button" href="<?php echo esc_url($tDeep); ?>" data-sc-track-url="<?php echo esc_url($trkDeep); ?>" target="_blank" rel="noreferrer"><?php echo esc_html__('Unlock deep audit', 'trucookie-cmp-consent-mode-v2'); ?></a>
                 <?php endif; ?>
             </div>
 
@@ -1250,17 +1261,52 @@ trait SC_AdminPageTrait
             </table>
             <div style="display:flex; gap: 8px; flex-wrap: wrap; margin-top: 8px;">
                 <?php if ($pricingUrl): ?>
-                    <a class="button button-primary" href="<?php echo esc_url($this->tracked_upgrade_url($pricingUrl, 'plans_compare')); ?>" target="_blank" rel="noreferrer"><?php echo esc_html__('Compare plans', 'trucookie-cmp-consent-mode-v2'); ?></a>
-                    <a class="button" href="<?php echo esc_url($this->tracked_upgrade_url($pricingUrl . '#starter', 'plans_buy_starter')); ?>" target="_blank" rel="noreferrer"><?php echo esc_html__('Buy Starter', 'trucookie-cmp-consent-mode-v2'); ?> <span class="description">(<?php echo esc_html__('requires account', 'trucookie-cmp-consent-mode-v2'); ?>)</span></a>
-                    <a class="button" href="<?php echo esc_url($this->tracked_upgrade_url($pricingUrl . '#agency', 'plans_buy_agency')); ?>" target="_blank" rel="noreferrer"><?php echo esc_html__('Buy Agency', 'trucookie-cmp-consent-mode-v2'); ?> <span class="description">(<?php echo esc_html__('requires account', 'trucookie-cmp-consent-mode-v2'); ?>)</span></a>
+                    <?php $tCompare = $pricingUrl; ?>
+                    <?php $trkCompare = $this->tracked_upgrade_url($tCompare, 'plans_compare') . '&no_redirect=1'; ?>
+                    <a class="button button-primary" href="<?php echo esc_url($tCompare); ?>" data-sc-track-url="<?php echo esc_url($trkCompare); ?>" target="_blank" rel="noreferrer"><?php echo esc_html__('Compare plans', 'trucookie-cmp-consent-mode-v2'); ?></a>
+
+                    <?php $tStarter = $pricingUrl . '#starter'; ?>
+                    <?php $trkStarter = $this->tracked_upgrade_url($tStarter, 'plans_buy_starter') . '&no_redirect=1'; ?>
+                    <a class="button" href="<?php echo esc_url($tStarter); ?>" data-sc-track-url="<?php echo esc_url($trkStarter); ?>" target="_blank" rel="noreferrer"><?php echo esc_html__('Buy Starter', 'trucookie-cmp-consent-mode-v2'); ?> <span class="description">(<?php echo esc_html__('requires account', 'trucookie-cmp-consent-mode-v2'); ?>)</span></a>
+
+                    <?php $tAgency = $pricingUrl . '#agency'; ?>
+                    <?php $trkAgency = $this->tracked_upgrade_url($tAgency, 'plans_buy_agency') . '&no_redirect=1'; ?>
+                    <a class="button" href="<?php echo esc_url($tAgency); ?>" data-sc-track-url="<?php echo esc_url($trkAgency); ?>" target="_blank" rel="noreferrer"><?php echo esc_html__('Buy Agency', 'trucookie-cmp-consent-mode-v2'); ?> <span class="description">(<?php echo esc_html__('requires account', 'trucookie-cmp-consent-mode-v2'); ?>)</span></a>
                 <?php endif; ?>
                 <?php if ($billingUrl): ?>
-                    <a class="button button-primary" href="<?php echo esc_url($this->tracked_upgrade_url($billingUrl, 'plans_open_billing')); ?>" target="_blank" rel="noreferrer"><?php echo esc_html__('Open billing', 'trucookie-cmp-consent-mode-v2'); ?></a>
+                    <?php $tBilling = $billingUrl; ?>
+                    <?php $trkBilling = $this->tracked_upgrade_url($tBilling, 'plans_open_billing') . '&no_redirect=1'; ?>
+                    <a class="button button-primary" href="<?php echo esc_url($tBilling); ?>" data-sc-track-url="<?php echo esc_url($trkBilling); ?>" target="_blank" rel="noreferrer"><?php echo esc_html__('Open billing', 'trucookie-cmp-consent-mode-v2'); ?></a>
                 <?php endif; ?>
             </div>
                 </div>
             <?php endif; ?>
         </div>
+        <script>
+        (function(){
+            function track(url){
+                if(!url) return;
+                try {
+                    if (navigator && typeof navigator.sendBeacon === 'function') {
+                        navigator.sendBeacon(url, '');
+                        return;
+                    }
+                } catch(e) {}
+                try {
+                    if (typeof fetch === 'function') {
+                        fetch(url, { method: 'POST', credentials: 'same-origin', keepalive: true }).catch(function(){});
+                    }
+                } catch(e) {}
+            }
+            document.addEventListener('click', function(e){
+                try {
+                    var a = e && e.target && e.target.closest ? e.target.closest('a[data-sc-track-url]') : null;
+                    if(!a) return;
+                    track(a.getAttribute('data-sc-track-url') || '');
+                } catch(_) {}
+            }, true);
+        })();
+        </script>
         <?php
     }
 }

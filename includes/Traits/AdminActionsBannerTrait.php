@@ -172,9 +172,11 @@ trait SC_AdminActionsBannerTrait
         }
         check_admin_referer('sc_track_upgrade_intent');
 
-        $intent = isset($_GET['intent']) ? sanitize_key((string) wp_unslash($_GET['intent'])) : 'unknown';
-        $target = isset($_GET['target']) ? (string) wp_unslash($_GET['target']) : '';
+        // Support both GET (link navigation) and POST (sendBeacon/fetch keepalive).
+        $intent = isset($_REQUEST['intent']) ? sanitize_key((string) wp_unslash($_REQUEST['intent'])) : 'unknown';
+        $target = isset($_REQUEST['target']) ? (string) wp_unslash($_REQUEST['target']) : '';
         $target = esc_url_raw($target);
+        $noRedirect = isset($_REQUEST['no_redirect']) && ((string) wp_unslash($_REQUEST['no_redirect'])) === '1';
 
         $allowed = [];
         $base = $this->get_service_url();
@@ -207,6 +209,11 @@ trait SC_AdminActionsBannerTrait
         $events['last_intent'] = $intent;
         $events['last_at'] = time();
         update_option(self::OPT_UPGRADE_INTENTS, $events);
+
+        if ($noRedirect) {
+            status_header(204);
+            exit;
+        }
 
         wp_safe_redirect($target);
         exit;
