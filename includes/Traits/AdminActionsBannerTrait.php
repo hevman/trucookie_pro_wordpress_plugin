@@ -2,6 +2,55 @@
 
 trait SC_AdminActionsBannerTrait
 {
+    private function output_wp_consent_api_bridge(): void
+    {
+        // WP Consent API integration (best-effort).
+        // Declares opt-in consent type early and mirrors TruCookie decisions into WP Consent API categories.
+        echo "\n" . '<script>(function(){' .
+            'try{' .
+                'if(typeof window.wp_consent_type==="undefined"||!window.wp_consent_type){' .
+                    'window.wp_consent_type="optin";' .
+                    'try{document.dispatchEvent(new CustomEvent("wp_consent_type_defined",{detail:{type:"optin"}}));}catch(e){}' .
+                '}' .
+            '}catch(e){}' .
+            'var scLast={analytics:false,marketing:false};' .
+            'function scApiReady(){try{return typeof window.wp_set_consent==="function";}catch(e){return false;}}' .
+            'function scWpSet(cat,allow){' .
+                'try{' .
+                    'if(!scApiReady()) return false;' .
+                    'window.wp_set_consent(String(cat), allow ? "allow" : "deny");' .
+                    'return true;' .
+                '}catch(e){}' .
+                'return false;' .
+            '}' .
+            'function scApply(detail){' .
+                'detail = detail || {};' .
+                'var c = (detail.consent && typeof detail.consent==="object") ? detail.consent : detail;' .
+                'scLast.analytics = !!c.analytics;' .
+                'scLast.marketing = !!(c.marketing || c.ads);' .
+                'scWpSet("statistics", scLast.analytics);' .
+                'scWpSet("marketing", scLast.marketing);' .
+            '}' .
+            'function scApplyLast(){' .
+                'scWpSet("statistics", scLast.analytics);' .
+                'scWpSet("marketing", scLast.marketing);' .
+            '}' .
+            // Default: deny optional categories until the user chooses (opt-in).
+            'scApply({analytics:false,marketing:false,ads:false});' .
+            // If WP Consent API loads after our snippet, retry briefly to ensure defaults are set.
+            'var scTries=0;' .
+            'var scTimer=setInterval(function(){' .
+                'scTries++;' .
+                'if(scApiReady()){scApplyLast();clearInterval(scTimer);return;}' .
+                'if(scTries>40){clearInterval(scTimer);}' .
+            '},250);' .
+            'try{' .
+                'window.addEventListener("sc:consent", function(ev){ scApply(ev && ev.detail); });' .
+                'document.addEventListener("sc:consent", function(ev){ scApply(ev && ev.detail); });' .
+            '}catch(e){}' .
+        '})();</script>' . "\n";
+    }
+
     public function handle_connect(): void
     {
         if (!current_user_can('manage_options')) {
@@ -453,6 +502,8 @@ trait SC_AdminActionsBannerTrait
         if ($inject !== '1') {
             return;
         }
+
+        $this->output_wp_consent_api_bridge();
 
         $sitePublicId = (string) get_option(self::OPT_SITE_PUBLIC_ID, '');
         $connected = $this->is_connected() && $sitePublicId !== '';

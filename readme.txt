@@ -18,6 +18,7 @@ TruCookie CMP helps you run a cookie banner and Google Consent Mode v2 setup fro
 Main capabilities:
 * WordPress CMP panel for banner controls and privacy settings
 * Google Consent Mode v2 controls
+* Optional WP Consent API integration (improves compatibility with plugins like Site Kit when WP Consent API is installed)
 * Optional verification meta tag injection
 * Light/deep audit actions and recommendations (when connected)
 * Plan and billing shortcuts from WordPress admin
