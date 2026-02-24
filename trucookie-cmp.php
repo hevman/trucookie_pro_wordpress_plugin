@@ -80,6 +80,11 @@ final class SaaS_Cookie_CMP_Plugin
         // Snippet + meta tag injection (runs early in <head>).
         add_action('wp_head', [$self, 'output_verification_meta'], 0);
         add_action('wp_head', [$self, 'output_banner_snippet'], 0);
+
+        // Fallbacks for themes/builders that omit `wp_head()` on some templates.
+        // We guard against duplicates inside `output_banner_snippet()`.
+        add_action('wp_body_open', [$self, 'output_banner_snippet'], 0);
+        add_action('wp_footer', [$self, 'output_banner_snippet'], 0);
     }
 
     public static function activate(): void

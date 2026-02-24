@@ -531,6 +531,13 @@ trait SC_AdminActionsBannerTrait
             return;
         }
 
+        // Prevent duplicate injection when multiple hooks run (wp_head + fallbacks).
+        static $didOutput = false;
+        if ($didOutput) {
+            return;
+        }
+        $didOutput = true;
+
         $this->output_wp_consent_api_bridge();
 
         $sitePublicId = (string) get_option(self::OPT_SITE_PUBLIC_ID, '');
