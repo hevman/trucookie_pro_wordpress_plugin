@@ -3,7 +3,7 @@
  * Plugin Name: TruCookie CMP (Consent Mode v2)
  * Plugin URI: https://trucookie.pro
  * Description: Connects your WordPress site to the TruCookie dashboard. Installs the CMP snippet, provides best-effort verification, and helps run audits.
- * Version: 0.1.0
+ * Version: 0.1.1
  * Requires at least: 6.0
  * Tested up to: 6.9
  * Requires PHP: 7.4

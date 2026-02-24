@@ -5,7 +5,7 @@ Requires at least: 6.0
 Tested up to: 6.9
 Requires PHP: 7.4
 Tested up to PHP: 8.5
-Stable tag: 0.1.0
+Stable tag: 0.1.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -112,6 +112,10 @@ You can configure locally, but connected mode is required for full dashboard syn
 Yes in most setups. Some themes/plugins can still inject scripts before consent, so verification is always recommended.
 
 == Changelog ==
+
+= 0.1.1 =
+* Added WP Consent API bridge for better compatibility with plugins like Site Kit (when WP Consent API is installed)
+* Added Google integration mode selector to reduce double counting (GTM vs GA4)
 
 = 0.1.0 =
 * Initial release
