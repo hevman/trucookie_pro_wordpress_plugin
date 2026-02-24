@@ -299,6 +299,7 @@ trait SC_AdminActionsBannerTrait
             'backgroundColor' => '#ffffff',
             'autoTheme' => true,
             'google' => [
+                'mode' => 'none', // none | gtm | ga4 | advanced
                 'gtmContainerId' => '',
                 'ga4MeasurementId' => '',
                 'googleAdsTagId' => '',
@@ -342,6 +343,7 @@ trait SC_AdminActionsBannerTrait
             'primaryColor' => (string) ($get($config, 'primaryColor', '#059669') ?: '#059669'),
             'backgroundColor' => (string) ($get($config, 'backgroundColor', '#ffffff') ?: '#ffffff'),
             'autoTheme' => $bool($get($config, 'autoTheme', true), true) ? '1' : '0',
+            'googleIntegrationMode' => (string) ($get($get($config, 'google', []), 'mode', 'none') ?: 'none'),
             'gtmContainerId' => trim((string) $get($get($config, 'google', []), 'gtmContainerId', '')) ?: null,
             'ga4MeasurementId' => trim((string) $get($get($config, 'google', []), 'ga4MeasurementId', '')) ?: null,
             'googleAdsTagId' => trim((string) $get($get($config, 'google', []), 'googleAdsTagId', '')) ?: null,
@@ -418,6 +420,7 @@ trait SC_AdminActionsBannerTrait
             'primaryColor' => $this->sanitize_hex_color_or_default($get('primaryColor'), '#059669'),
             'backgroundColor' => $this->sanitize_hex_color_or_default($get('backgroundColor'), '#ffffff'),
             'autoTheme' => $flag('autoTheme'),
+            'googleIntegrationMode' => $this->sanitize_choice($get('googleIntegrationMode'), ['none', 'gtm', 'ga4', 'advanced'], 'none'),
             'gtmContainerId' => $this->sanitize_tracking_id($get('gtmContainerId')),
             'ga4MeasurementId' => $this->sanitize_tracking_id($get('ga4MeasurementId')),
             'googleAdsTagId' => $this->sanitize_tracking_id($get('googleAdsTagId')),
@@ -425,6 +428,23 @@ trait SC_AdminActionsBannerTrait
             'telemetryConsentLog' => $flag('telemetryConsentLog'),
             'experimentalNetworkBlocker' => $flag('experimentalNetworkBlocker'),
         ];
+
+        // Keep config consistent and avoid accidental double counting.
+        // - gtm: only GTM ID (tags managed inside GTM)
+        // - ga4: only GA4 ID (no GTM)
+        // - none: no IDs
+        // - advanced: allow all fields as-is
+        if ($payload['googleIntegrationMode'] === 'gtm') {
+            $payload['ga4MeasurementId'] = null;
+            $payload['googleAdsTagId'] = null;
+        } elseif ($payload['googleIntegrationMode'] === 'ga4') {
+            $payload['gtmContainerId'] = null;
+            $payload['googleAdsTagId'] = null;
+        } elseif ($payload['googleIntegrationMode'] === 'none') {
+            $payload['gtmContainerId'] = null;
+            $payload['ga4MeasurementId'] = null;
+            $payload['googleAdsTagId'] = null;
+        }
 
         if (!$connected) {
             $cfg = $this->banner_config_from_local_option();
@@ -440,6 +460,7 @@ trait SC_AdminActionsBannerTrait
                 'backgroundColor' => $payload['backgroundColor'],
                 'autoTheme' => $payload['autoTheme'] === '1',
                 'google' => [
+                    'mode' => $payload['googleIntegrationMode'] ?: 'none',
                     'gtmContainerId' => $payload['gtmContainerId'] ?: '',
                     'ga4MeasurementId' => $payload['ga4MeasurementId'] ?: '',
                     'googleAdsTagId' => $payload['googleAdsTagId'] ?: '',

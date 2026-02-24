@@ -884,10 +884,83 @@ trait SC_AdminPageTrait
                     <tr>
                         <th scope="row"><?php echo esc_html__('Google IDs (optional)', 'trucookie-cmp-consent-mode-v2'); ?></th>
                         <td>
-                            <p class="description"><?php echo esc_html__('If you set IDs here, the CMP can gate common Google tags after consent (best-effort).', 'trucookie-cmp-consent-mode-v2'); ?></p>
-                            <p><label for="gtmContainerId"><?php echo esc_html__('GTM', 'trucookie-cmp-consent-mode-v2'); ?></label><br /><input name="gtmContainerId" id="gtmContainerId" type="text" class="regular-text" value="<?php echo esc_attr((string) ($localBannerCfg['google']['gtmContainerId'] ?? '')); ?>" /></p>
-                            <p><label for="ga4MeasurementId"><?php echo esc_html__('GA4', 'trucookie-cmp-consent-mode-v2'); ?></label><br /><input name="ga4MeasurementId" id="ga4MeasurementId" type="text" class="regular-text" value="<?php echo esc_attr((string) ($localBannerCfg['google']['ga4MeasurementId'] ?? '')); ?>" /></p>
-                            <p><label for="googleAdsTagId"><?php echo esc_html__('Google Ads', 'trucookie-cmp-consent-mode-v2'); ?></label><br /><input name="googleAdsTagId" id="googleAdsTagId" type="text" class="regular-text" value="<?php echo esc_attr((string) ($localBannerCfg['google']['googleAdsTagId'] ?? '')); ?>" /></p>
+                            <p class="description">
+                                <?php echo esc_html__('Choose one integration mode to avoid double counting. These IDs are used when connected (hosted banner.js).', 'trucookie-cmp-consent-mode-v2'); ?>
+                            </p>
+
+                            <?php
+                            $gtmId = (string) ($localBannerCfg['google']['gtmContainerId'] ?? '');
+                            $ga4Id = (string) ($localBannerCfg['google']['ga4MeasurementId'] ?? '');
+                            $adsId = (string) ($localBannerCfg['google']['googleAdsTagId'] ?? '');
+                            $mode = (string) ($localBannerCfg['google']['mode'] ?? '');
+                            if ($mode === '') {
+                                if ($gtmId !== '' && $ga4Id !== '') {
+                                    $mode = 'advanced';
+                                } elseif ($gtmId !== '') {
+                                    $mode = 'gtm';
+                                } elseif ($ga4Id !== '') {
+                                    $mode = 'ga4';
+                                } else {
+                                    $mode = 'none';
+                                }
+                            }
+                            ?>
+
+                            <p>
+                                <label for="googleIntegrationMode"><?php echo esc_html__('Integration mode', 'trucookie-cmp-consent-mode-v2'); ?></label><br />
+                                <select name="googleIntegrationMode" id="googleIntegrationMode">
+                                    <option value="none" <?php selected($mode, 'none'); ?>><?php echo esc_html__('Disabled', 'trucookie-cmp-consent-mode-v2'); ?></option>
+                                    <option value="gtm" <?php selected($mode, 'gtm'); ?>><?php echo esc_html__('Google Tag Manager (recommended)', 'trucookie-cmp-consent-mode-v2'); ?></option>
+                                    <option value="ga4" <?php selected($mode, 'ga4'); ?>><?php echo esc_html__('GA4 via gtag.js (no GTM)', 'trucookie-cmp-consent-mode-v2'); ?></option>
+                                    <option value="advanced" <?php selected($mode, 'advanced'); ?>><?php echo esc_html__('Advanced (GTM + GA4 / custom)', 'trucookie-cmp-consent-mode-v2'); ?></option>
+                                </select>
+                            </p>
+
+                            <div id="sc-google-mode-warning" class="notice notice-warning inline" style="display:none; margin: 8px 0 10px 0; padding: 8px 10px;">
+                                <p style="margin:0;"><?php echo esc_html__('You entered both GTM and GA4 IDs. This can cause double counting. Pick one mode or use Advanced.', 'trucookie-cmp-consent-mode-v2'); ?></p>
+                            </div>
+
+                            <p id="sc-google-field-gtm"><label for="gtmContainerId"><?php echo esc_html__('GTM', 'trucookie-cmp-consent-mode-v2'); ?></label><br /><input name="gtmContainerId" id="gtmContainerId" type="text" class="regular-text" value="<?php echo esc_attr($gtmId); ?>" /></p>
+                            <p id="sc-google-field-ga4"><label for="ga4MeasurementId"><?php echo esc_html__('GA4', 'trucookie-cmp-consent-mode-v2'); ?></label><br /><input name="ga4MeasurementId" id="ga4MeasurementId" type="text" class="regular-text" value="<?php echo esc_attr($ga4Id); ?>" /></p>
+                            <p id="sc-google-field-ads"><label for="googleAdsTagId"><?php echo esc_html__('Google Ads', 'trucookie-cmp-consent-mode-v2'); ?></label><br /><input name="googleAdsTagId" id="googleAdsTagId" type="text" class="regular-text" value="<?php echo esc_attr($adsId); ?>" /></p>
+
+                            <script>
+                            (function(){
+                                function el(id){ return document.getElementById(id); }
+                                function show(id, yes){
+                                    var x = el(id);
+                                    if(!x) return;
+                                    x.style.display = yes ? '' : 'none';
+                                }
+                                function update(){
+                                    var modeEl = el('googleIntegrationMode');
+                                    var mode = modeEl ? (modeEl.value || 'none') : 'none';
+                                    show('sc-google-field-gtm', mode === 'gtm' || mode === 'advanced');
+                                    show('sc-google-field-ga4', mode === 'ga4' || mode === 'advanced');
+                                    show('sc-google-field-ads', mode === 'advanced');
+
+                                    var gtm = (el('gtmContainerId') && el('gtmContainerId').value) ? String(el('gtmContainerId').value).trim() : '';
+                                    var ga4 = (el('ga4MeasurementId') && el('ga4MeasurementId').value) ? String(el('ga4MeasurementId').value).trim() : '';
+                                    var warn = el('sc-google-mode-warning');
+                                    if(warn){
+                                        warn.style.display = (mode !== 'advanced' && gtm && ga4) ? '' : 'none';
+                                    }
+                                }
+                                document.addEventListener('change', function(e){
+                                    if(!e || !e.target) return;
+                                    if(e.target.id === 'googleIntegrationMode' || e.target.id === 'gtmContainerId' || e.target.id === 'ga4MeasurementId' || e.target.id === 'googleAdsTagId'){
+                                        update();
+                                    }
+                                });
+                                document.addEventListener('input', function(e){
+                                    if(!e || !e.target) return;
+                                    if(e.target.id === 'gtmContainerId' || e.target.id === 'ga4MeasurementId' || e.target.id === 'googleAdsTagId'){
+                                        update();
+                                    }
+                                });
+                                update();
+                            })();
+                            </script>
                         </td>
                     </tr>
                     <tr>
