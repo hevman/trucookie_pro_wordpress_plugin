@@ -136,6 +136,7 @@ final class Frontend
             'marketingLabel' => 'Marketing',
             'analyticsDescription' => 'Traffic measurement (Google Analytics).',
             'marketingDescription' => 'Ads / remarketing (Google).',
+            'googleDataResponsibilityLabel' => 'Google data responsibility',
             'revisitButton' => $revisit,
             'disclaimer' => 'Manage consent in Preferences. See Privacy Policy for details.',
         ];
@@ -146,6 +147,7 @@ final class Frontend
             true
         );
         $labelsPl['revisitButton'] = $revisit;
+        $labelsPl['googleDataResponsibilityLabel'] = 'Google - odpowiedzialnosc za dane';
 
         $defaultLabels = $isPl ? $labelsPl : $labelsEn;
 
@@ -167,6 +169,7 @@ final class Frontend
             'resetParams' => ['tcs_reset_consent', 'sc_reset_consent'],
             'cookiesUrl' => $cookiesUrl,
             'privacyUrl' => $privacyUrl,
+            'googleDataResponsibilityUrl' => 'https://business.safety.google/privacy/',
             'restUrl' => esc_url_raw(rest_url('trucookie-cmp/v1/consent')),
             'style' => $this->settings->get('style'),
             'colorScheme' => $this->settings->get('color_scheme'),

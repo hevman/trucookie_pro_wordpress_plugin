@@ -922,6 +922,10 @@
 
     addLink(resolveUrl(cfg.cookiesUrl), textValue("cookiesLinkLabel", "Cookie Policy"));
     addLink(resolveUrl(cfg.privacyUrl), textValue("privacyLinkLabel", "Privacy Policy"));
+    addLink(
+      resolveUrl(cfg.googleDataResponsibilityUrl || "https://business.safety.google/privacy/"),
+      textValue("googleDataResponsibilityLabel", "Google data responsibility")
+    );
 
     analyticsRow = makeToggleRow(
       textValue("analyticsLabel", "Analytics"),
@@ -1099,6 +1103,10 @@
 
     appendLink(resolveUrl(cfg.privacyUrl), textValue("privacyLinkLabel", "Privacy Policy"));
     appendLink(resolveUrl(cfg.cookiesUrl), textValue("cookiesLinkLabel", "Cookie Policy"));
+    appendLink(
+      resolveUrl(cfg.googleDataResponsibilityUrl || "https://business.safety.google/privacy/"),
+      textValue("googleDataResponsibilityLabel", "Google data responsibility")
+    );
 
     actions = el("div");
     actions.className = "tcs-actions";

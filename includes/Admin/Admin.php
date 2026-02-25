@@ -318,6 +318,9 @@ final class Admin
                                 <?php echo esc_html__('wait_for_update (ms)', 'trucookie-cmp-stable'); ?>
                                 <input type="number" min="0" max="5000" step="100" name="<?php echo esc_attr(Settings::OPTION_KEY); ?>[gcm_wait_for_update]" value="<?php echo esc_attr($s['gcm_wait_for_update']); ?>">
                             </label>
+                            <p class="description" style="margin-top:8px;margin-bottom:0;">
+                                <?php echo esc_html__('Recommended (Consent Mode without TCF): use the default TruCookie banner template text and links, including Google data responsibility.', 'trucookie-cmp-stable'); ?>
+                            </p>
                         </td>
                     </tr>
                     <tr>
