@@ -24,6 +24,57 @@ TruCookie CMP Stable provides:
 
 The plugin works fully in local mode. Connected mode is optional.
 
+== Google Consent Mode Documentation ==
+
+Official Google references used by this plugin documentation:
+
+* Consent Mode overview and implementation guide: https://developers.google.com/tag-platform/security/guides/consent
+* Google business data responsibility: https://business.safety.google/privacy/
+
+TruCookie CMP Stable follows Google Consent Mode purpose mapping for:
+
+* `ad_storage`
+* `analytics_storage`
+* `ad_user_data`
+* `ad_personalization`
+
+Notes:
+
+* The plugin documentation describes technical signal behavior only.
+* It does not claim Consent Mode alone satisfies any specific legal or regulatory requirement.
+
+== Consent Mode Configuration (Basic and Advanced) ==
+
+In TruCookie CMP -> Compliance & Integrations -> Google Consent Mode v2:
+
+* Mode: Advanced
+  * Consent defaults are sent as denied before user choice.
+  * Google tags may load before consent, then receive consent updates.
+* Mode: Basic
+  * Intended for setups that block Google tags before consent.
+  * After consent, tags can be enabled and updates are sent.
+
+Core settings:
+
+* `Enable GCM` enables default and update commands for the required consent types.
+* `wait_for_update (ms)` controls the update timing window.
+* `Google developer ID` sets developer identification in runtime where configured.
+
+== Banner Requirements Guidance ==
+
+The plugin provides a graphical user interface (GUI) for banner setup (no custom HTML or JavaScript required for standard configuration).
+
+Default template guidance for Consent Mode without TCF:
+
+* Banner text explains data collection for personalization and analytics.
+* Banner UI includes an affirmative consent option (`Accept All`).
+* Banner and preferences include links to:
+  * Cookie Policy
+  * Privacy Policy
+  * Google business data responsibility (`https://business.safety.google/privacy/`)
+
+The admin UI recommends using this default template when enabling Consent Mode without TCF.
+
 == Installation ==
 
 1. Upload plugin folder to `/wp-content/plugins/` or install ZIP in wp-admin.
