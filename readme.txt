@@ -1,121 +1,103 @@
-﻿=== TruCookie CMP (Consent Mode v2) ===
+=== TruCookie CMP Stable ===
 Contributors: trucookie
-Tags: gdpr, cookie consent, google consent mode, consent mode v2, cookie banner
+Tags: cookie banner, consent, gdpr, privacy, google consent mode
 Requires at least: 6.0
 Tested up to: 6.9
 Requires PHP: 7.4
-Tested up to PHP: 8.5
-Stable tag: 0.1.1
+Stable tag: 0.4.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-GDPR cookie consent for WordPress with Google Consent Mode v2, CMP banner controls, verification, and privacy audit workflows.
+Cookie banner for WordPress with local runtime, wp-consent-api bridge, Google Consent Mode v2, and optional TruCookie connected mode.
 
 == Description ==
 
-TruCookie CMP helps you run a cookie banner and Google Consent Mode v2 setup from one WordPress panel.
+TruCookie CMP Stable provides:
 
-Main capabilities:
-* WordPress CMP panel for banner controls and privacy settings
-* Google Consent Mode v2 controls
-* Optional WP Consent API integration (improves compatibility with plugins like Site Kit when WP Consent API is installed)
-* Optional verification meta tag injection
-* Light/deep audit actions and recommendations (when connected)
-* Plan and billing shortcuts from WordPress admin
-* Built-in translations for major WordPress locales (en_US, pl_PL, de_DE, es_ES, fr_FR, it_IT, pt_BR)
+* Cookie banner with English and Polish labels
+* GDPR / US mode switch
+* Google Consent Mode v2 defaults + updates
+* Optional script blocker by consent category
+* Optional server-side consent forwarding to TruCookie
+* Local consent logs with CSV export
+* wp-consent-api bridge (`wp_set_consent`)
 
-Scope and non-scope:
-* Scope: advertiser Consent Mode v2 workflows and technical consent signal handling.
-* Not in scope: publisher-certified CMP status and full IAB TCF implementation for AdSense, Ad Manager, or AdMob.
-
-Connected mode:
-* Syncs your site with the dashboard
-* (Optional) injects the CMP snippet into <head>
-* (Optional) injects verification meta tag into <head>
-* Triggers best-effort verification in the dashboard
-
-== Third-party services ==
-
-This plugin connects to the TruCookie SaaS service.
-
-Service provider:
-* TruCookie (https://trucookie.pro)
-
-What is sent:
-* Website URL/host used for site connect/sync and verification
-* API key in authenticated requests
-* Site/public IDs and scan request metadata required for audit operations
-
-When data is sent:
-* When an admin connects/syncs/verifies/runs audits in plugin settings
-* When connected mode banner snippet is enabled, front-end loads banner script from TruCookie domain
-
-Service links:
-* Cookie Policy: https://trucookie.pro/cookies
-* Privacy Policy: https://trucookie.pro/privacy
-* Terms: https://trucookie.pro/terms
+The plugin works fully in local mode. Connected mode is optional.
 
 == Installation ==
 
-1. Upload the plugin folder to /wp-content/plugins/
-2. Activate the plugin in WordPress
-3. Go to TruCookie (left sidebar)
-4. Paste API key, then click Connect
-
-Dashboard URL is detected automatically (it shows the current WordPress site URL).
-
-Advanced override of the TruCookie service URL (e.g. self-hosted / staging):
-* wp-config.php: define('SC_SERVICE_URL', 'https://your-dashboard-domain.com');
-* Or filter: sc_default_service_url
-
-== Development ==
-
-Basic checks:
-* php -l trucookie-cmp.php
-* php tests/integration-flow.php
-
-== Screenshots ==
-
-1. TruCookie plugin panel in WordPress (connect, banner preview/config, audit, plans).
-
-== Translations ==
-
-The plugin includes translation files (`.po` + `.mo`) for popular WordPress locales:
-* English (United States) (`en_US`)
-* Polish (`pl_PL`)
-* German (`de_DE`)
-* Spanish (`es_ES`)
-* French (`fr_FR`)
-* Italian (`it_IT`)
-* Portuguese, Brazil (`pt_BR`)
-
-WordPress will automatically load the matching locale when available.
+1. Upload plugin folder to `/wp-content/plugins/` or install ZIP in wp-admin.
+2. Activate **TruCookie CMP Stable**.
+3. Go to **TruCookie CMP** in wp-admin.
+4. Configure banner and save settings.
+5. Test in incognito mode with `?tcs_reset_consent=1&tcs_force_banner=1`.
 
 == Frequently Asked Questions ==
 
-= Does this guarantee that tags won't run before consent? =
-No. This is best-effort. Theme/plugins can still inject tags earlier. Use the dashboard audit to confirm technical behavior.
+= Why is there no banner after install? =
 
-= Does it support Google Consent Mode v2? =
-Yes. The plugin supports Google Consent Mode v2 integration and consent state handling.
+Most often consent is already stored in localStorage/cookie. Reset with:
+`?tcs_reset_consent=1&tcs_force_banner=1`.
 
-= Is this a publisher-certified CMP for AdSense/Ad Manager/AdMob? =
-No. This plugin is focused on advertiser Consent Mode workflows and does not provide full IAB TCF publisher CMP certification scope.
+= Is TruCookie API required? =
 
-= Is this a GDPR cookie consent plugin for WordPress? =
-It is designed for GDPR-oriented cookie consent workflows, including banner setup and policy/audit checks.
+No. Local mode does not require external API.
 
-= Can I use it without an account? =
-You can configure locally, but connected mode is required for full dashboard sync and audit features.
+= Does this plugin send data externally by default? =
 
-= Does this work with most themes? =
-Yes in most setups. Some themes/plugins can still inject scripts before consent, so verification is always recommended.
+No. External forwarding is disabled by default and must be enabled in settings.
+
+== Privacy ==
+
+By default the plugin stores consent decision locally in visitor browser.
+
+Optional local logging in WordPress database stores:
+
+* consent state
+* page URL and referrer
+* timestamp
+* plugin version and source
+
+Optional metadata collection (disabled by default) can add:
+
+* user agent
+* IP hint
+
+Optional forwarding to TruCookie (disabled by default) sends consent event to configured endpoint.
+
+Site owner is responsible for legal basis, privacy notices, and consent language.
+
+== External Services ==
+
+This plugin can connect to external TruCookie service only when enabled by admin.
+
+Service: TruCookie API  
+Purpose: Optional consent log forwarding / connected renderer  
+Data sent: consent payload, URL/referrer, timestamp, plugin metadata, and optionally user agent/IP hint  
+Endpoint: configured by admin (`Service URL` + `Consent log path`)  
+Provider: TruCookie  
+Terms: https://trucookie.pro/terms  
+Privacy Policy: https://trucookie.pro/privacy
+
+== Screenshots ==
+
+1. TruCookie CMP settings screen in WordPress admin.
 
 == Changelog ==
 
-= 0.1.1 =
-* Added WP Consent API bridge for better compatibility with plugins like Site Kit (when WP Consent API is installed)
-* Added Google integration mode selector to reduce double counting (GTM vs GA4)
+= 0.4.4 =
 
-= 0.1.0 =
-* Initial release
+* Hardened public consent endpoint (same-site check + rate limiting)
+* Added compliance toggles:
+  * collect technical metadata (off by default)
+  * forward consent logs externally (off by default)
+* Added textdomain loading for i18n bootstrap
+* Added uninstall cleanup
+* Added release gate script
+* New architecture
+
+= 0.4.3 =
+
+* Banner/admin CSS moved to external files
+* Improved policy URL resolution
+* Updated banner copy

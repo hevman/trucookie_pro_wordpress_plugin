@@ -1,0 +1,122 @@
+.tcs-admin {
+  --tcs-bg: #ffffff;
+  --tcs-border: #dcdcde;
+  --tcs-text: #1d2327;
+  --tcs-muted: #50575e;
+  --tcs-card-radius: 10px;
+  --tcs-space: 14px;
+}
+
+.tcs-admin > h1 {
+  margin-bottom: 4px;
+}
+
+.tcs-admin > p {
+  max-width: 980px;
+  color: var(--tcs-muted);
+}
+
+.tcs-admin .tcs-card {
+  background: var(--tcs-bg);
+  border: 1px solid var(--tcs-border);
+  border-radius: var(--tcs-card-radius);
+  padding: 12px 16px;
+  margin: 0 0 14px;
+}
+
+.tcs-admin .tcs-card > h2 {
+  margin: 4px 0 10px;
+  padding: 0;
+  font-size: 17px;
+}
+
+.tcs-admin .tcs-overview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin: 0 0 10px;
+}
+
+.tcs-admin .tcs-overview-card {
+  background: #f9f9fa;
+  border: 1px solid var(--tcs-border);
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.tcs-admin .tcs-overview-label {
+  font-size: 12px;
+  color: var(--tcs-muted);
+  margin-bottom: 6px;
+}
+
+.tcs-admin .tcs-overview-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--tcs-text);
+}
+
+.tcs-admin .tcs-quick-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.tcs-admin .tcs-form-table {
+  margin-top: 0;
+}
+
+.tcs-admin .tcs-form-table th {
+  width: 230px;
+  color: var(--tcs-text);
+  font-weight: 600;
+}
+
+.tcs-admin .tcs-form-table td {
+  vertical-align: top;
+}
+
+.tcs-admin .tcs-form-table input[type="text"],
+.tcs-admin .tcs-form-table input[type="url"],
+.tcs-admin .tcs-form-table input[type="number"],
+.tcs-admin .tcs-form-table input[type="password"],
+.tcs-admin .tcs-form-table select {
+  min-width: 260px;
+}
+
+.tcs-admin .tcs-help-note {
+  margin-top: 6px;
+  color: var(--tcs-muted);
+  font-size: 12px;
+}
+
+.tcs-admin .description code {
+  font-size: 12px;
+}
+
+.tcs-admin .button {
+  border-radius: 6px;
+}
+
+.tcs-admin .tcs-logs-table td code {
+  font-size: 12px;
+}
+
+@media (max-width: 782px) {
+  .tcs-admin .tcs-form-table th,
+  .tcs-admin .tcs-form-table td {
+    display: block;
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .tcs-admin .tcs-form-table input[type="text"],
+  .tcs-admin .tcs-form-table input[type="url"],
+  .tcs-admin .tcs-form-table input[type="number"],
+  .tcs-admin .tcs-form-table input[type="password"],
+  .tcs-admin .tcs-form-table select {
+    min-width: 0;
+    width: 100%;
+  }
+}
