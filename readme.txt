@@ -30,8 +30,10 @@ Official Google references used by this plugin documentation:
 
 * Consent Mode overview and implementation guide: https://developers.google.com/tag-platform/security/guides/consent
 * Google business data responsibility: https://business.safety.google/privacy/
+* Google tag consent APIs: https://developers.google.com/tag-platform/gtagjs/reference#consent
+* Tag Manager consent APIs: https://developers.google.com/tag-platform/tag-manager/templates/consent-apis
 
-TruCookie CMP Stable follows Google Consent Mode purpose mapping for:
+TruCookie CMP Stable follows Consent Mode v2 mapping for:
 
 * `ad_storage`
 * `analytics_storage`
@@ -40,34 +42,46 @@ TruCookie CMP Stable follows Google Consent Mode purpose mapping for:
 
 Notes:
 
-* The plugin documentation describes technical signal behavior only.
-* It does not claim Consent Mode alone satisfies any specific legal or regulatory requirement.
+* This documentation explains technical signal handling.
+* It does not claim that Consent Mode alone satisfies any specific legal or regulatory requirement.
 
 == Consent Mode Configuration (Basic and Advanced) ==
 
 In TruCookie CMP -> Compliance & Integrations -> Google Consent Mode v2:
 
 * Mode: Advanced
-  * Consent defaults are sent as denied before user choice.
-  * Google tags may load before consent, then receive consent updates.
+  * Set consent defaults before measurement.
+  * Google tags can load before user consent and are updated after user choice.
 * Mode: Basic
-  * Intended for setups that block Google tags before consent.
-  * After consent, tags can be enabled and updates are sent.
+  * Block Google tags before user consent.
+  * Enable tags and update consent only after user interaction.
 
-Core settings:
+Default implementation order (as recommended by Google):
 
-* `Enable GCM` enables default and update commands for the required consent types.
-* `wait_for_update (ms)` controls the update timing window.
-* `Google developer ID` sets developer identification in runtime where configured.
+1. Load Google tag bootstrap (`dataLayer` + `gtag` function).
+2. Call `gtag('consent','default',...)` before `config`/`event`.
+3. If CMP/banner can load asynchronously, use `wait_for_update`.
+4. Call `gtag('consent','update',...)` immediately on consent interaction, on the same page.
+5. Persist user choice and replay update on subsequent pages.
+
+Core settings exposed in plugin GUI:
+
+* `Enable GCM` enables default and update commands for required consent types.
+* `wait_for_update (ms)` controls the async waiting window.
+* `Mode` selects Basic vs Advanced behavior.
+* `Google developer ID` sets developer identification where configured.
+* `Geo-target banner` controls where banner is shown (for region-specific behavior).
+
+Advanced options such as `url_passthrough` and `ads_data_redaction` are not enabled automatically by this plugin and should be configured explicitly in the Google tag setup when needed.
 
 == Banner Requirements Guidance ==
 
-The plugin provides a graphical user interface (GUI) for banner setup (no custom HTML or JavaScript required for standard configuration).
+The plugin provides a full graphical user interface (GUI) for banner setup (no custom HTML/JavaScript required for standard setup).
 
 Default template guidance for Consent Mode without TCF:
 
 * Banner text explains data collection for personalization and analytics.
-* Banner UI includes an affirmative consent option (`Accept All`).
+* Banner includes an affirmative consent option (`Accept All`).
 * Banner and preferences include links to:
   * Cookie Policy
   * Privacy Policy
