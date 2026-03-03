@@ -188,7 +188,7 @@ final class Frontend
                 'waitForUpdate' => (int) $this->settings->get('gcm_wait_for_update'),
             ],
             'theme' => [
-                'primary' => '#059669',
+                'primary' => '#047857',
                 'background' => '#ffffff',
             ],
             'locale' => $isPl ? 'pl' : 'en',

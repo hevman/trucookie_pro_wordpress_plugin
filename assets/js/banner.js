@@ -490,6 +490,7 @@
     button.className = "tcs-revisit-btn";
     button.textContent = textValue("revisitButton", cfg.revisitButtonText || "Privacy settings");
     button.style.setProperty("--tcs-primary", th.primary);
+    button.style.setProperty("--tcs-primary-text", th.primaryText);
     button.onclick = function () {
       openModal();
     };
@@ -579,6 +580,7 @@
 
   function hexToRgb(hex) {
     var h = typeof hex === "string" ? hex.trim().toLowerCase() : "";
+    var rgbMatch;
     var r;
     var g;
     var b;
@@ -588,6 +590,21 @@
     }
     if (h.charAt(0) === "#") {
       h = h.slice(1);
+    }
+    rgbMatch = h.match(/^rgb\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*\)$/);
+    if (rgbMatch) {
+      r = parseInt(rgbMatch[1], 10);
+      g = parseInt(rgbMatch[2], 10);
+      b = parseInt(rgbMatch[3], 10);
+      if (
+        isFinite(r) && isFinite(g) && isFinite(b) &&
+        r >= 0 && r <= 255 &&
+        g >= 0 && g <= 255 &&
+        b >= 0 && b <= 255
+      ) {
+        return { r: r, g: g, b: b };
+      }
+      return null;
     }
     if (h.length === 3) {
       h = h.charAt(0) + h.charAt(0) + h.charAt(1) + h.charAt(1) + h.charAt(2) + h.charAt(2);
@@ -607,6 +624,57 @@
     return { r: r, g: g, b: b };
   }
 
+  function relativeLuminance(rgb) {
+    function normalizeChannel(v) {
+      var c = v / 255;
+      return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+    }
+    return (
+      0.2126 * normalizeChannel(rgb.r) +
+      0.7152 * normalizeChannel(rgb.g) +
+      0.0722 * normalizeChannel(rgb.b)
+    );
+  }
+
+  function contrastRatio(a, b) {
+    var la = relativeLuminance(a);
+    var lb = relativeLuminance(b);
+    var hi = Math.max(la, lb);
+    var lo = Math.min(la, lb);
+    return (hi + 0.05) / (lo + 0.05);
+  }
+
+  function pickAccessibleTextColor(backgroundColor) {
+    var bg = hexToRgb(backgroundColor);
+    var white = { r: 255, g: 255, b: 255 };
+    var dark = { r: 17, g: 24, b: 39 };
+    var whiteRatio;
+    var darkRatio;
+
+    if (!bg) {
+      return "#ffffff";
+    }
+
+    whiteRatio = contrastRatio(bg, white);
+    darkRatio = contrastRatio(bg, dark);
+    if (whiteRatio >= 4.5 || whiteRatio >= darkRatio) {
+      return "#ffffff";
+    }
+
+    return "rgb(17,24,39)";
+  }
+
+  function pickAccessibleLinkColor(primaryColor, backgroundColor, backgroundIsDark) {
+    var primaryRgb = hexToRgb(primaryColor);
+    var backgroundRgb = hexToRgb(backgroundColor);
+
+    if (primaryRgb && backgroundRgb && contrastRatio(primaryRgb, backgroundRgb) >= 4.5) {
+      return primaryColor;
+    }
+
+    return backgroundIsDark ? "#6ee7b7" : "#047857";
+  }
+
   function isDarkHex(hex) {
     var rgb = hexToRgb(hex);
     var lum;
@@ -622,7 +690,7 @@
     var wantsDark = isDarkMode();
     var autoTheme = !(cfg && cfg.autoTheme === false);
     var themeCfg = cfg.theme || {};
-    var primary = themeCfg.primary || cfg.primaryColor || "#059669";
+    var primary = themeCfg.primary || cfg.primaryColor || "#047857";
     var bg = themeCfg.background || cfg.backgroundColor || "#ffffff";
     var bgNorm = String(bg || "").trim().toLowerCase();
     var bgIsDark = isDarkHex(bgNorm);
@@ -653,6 +721,8 @@
 
     return {
       primary: primary,
+      primaryText: pickAccessibleTextColor(primary),
+      linkColor: pickAccessibleLinkColor(primary, bg, !!bgIsDark),
       bg: bg,
       isDark: !!bgIsDark,
       text: bgIsDark ? "rgb(244,244,245)" : "rgb(17,24,39)",
@@ -831,6 +901,7 @@
     var saveButton;
     var essentialButton;
     var consent = getStoredConsent() || { analytics: false, marketing: false };
+    var th = theme();
 
     function makeToggleRow(titleText, descriptionText, checked, disabled) {
       var row = el("div");
@@ -838,8 +909,6 @@
       var l1 = el("div", titleText);
       var l2 = el("div", descriptionText);
       var input = doc.createElement("input");
-      var th = theme();
-
       row.className = "tcs-modal-row";
       row.setAttribute("data-sc-row", "1");
 
@@ -902,11 +971,13 @@
     modal = el("div");
     modal.setAttribute("data-sc-modal", "1");
     modal.className = "tcs-modal-card";
-    modal.style.setProperty("--tcs-primary", theme().primary);
-    modal.style.setProperty("--tcs-bg", theme().bg);
-    modal.style.setProperty("--tcs-text", theme().text);
-    modal.style.setProperty("--tcs-divider", theme().divider);
-    modal.style.setProperty("--tcs-btn-border", theme().btnBorder);
+    modal.style.setProperty("--tcs-primary", th.primary);
+    modal.style.setProperty("--tcs-primary-text", th.primaryText);
+    modal.style.setProperty("--tcs-link-color", th.linkColor);
+    modal.style.setProperty("--tcs-bg", th.bg);
+    modal.style.setProperty("--tcs-text", th.text);
+    modal.style.setProperty("--tcs-divider", th.divider);
+    modal.style.setProperty("--tcs-btn-border", th.btnBorder);
 
     title = el("div", textValue("preferencesTitle", "Privacy preferences"));
     title.className = "tcs-modal-title";
@@ -1081,6 +1152,8 @@
     wrap.className = "tcs-banner " + (th.isDark ? "tcs-theme-dark" : "tcs-theme-light");
     wrap.setAttribute("data-sc-banner", "1");
     wrap.style.setProperty("--tcs-primary", th.primary);
+    wrap.style.setProperty("--tcs-primary-text", th.primaryText);
+    wrap.style.setProperty("--tcs-link-color", th.linkColor);
     wrap.style.setProperty("--tcs-bg", th.bg);
     wrap.style.setProperty("--tcs-text", th.text);
     wrap.style.setProperty("--tcs-border", th.border);
