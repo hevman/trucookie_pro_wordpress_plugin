@@ -4,7 +4,7 @@ Tags: cookie banner, consent, gdpr, privacy, google consent mode
 Requires at least: 6.0
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 0.4.4
+Stable tag: 0.4.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -149,6 +149,21 @@ Privacy Policy: https://trucookie.pro/privacy
 1. TruCookie CMP settings screen in WordPress admin.
 
 == Changelog ==
+
+= 0.4.6 =
+
+* Professionalized plan architecture:
+  * extracted plan sync into dedicated core service
+  * added plan sync status in admin overview
+  * added plan-aware premium enforcement for connected mode and consent forwarding
+* Improved admin UX:
+  * visible Premium badges with gold star
+  * clearer plan/usage communication synced from TruCookie API
+* Added settings warning when premium-only options are auto-reset on Free plan
+
+= 0.4.5 =
+
+* Maintenance release: version bump and packaging metadata update
 
 = 0.4.4 =
 

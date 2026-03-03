@@ -3,7 +3,7 @@
  * Plugin Name: TruCookie CMP Stable
  * Plugin URI: https://trucookie.pro
  * Description: Stable cookie banner for WordPress with TruCookie-compatible connected mode and consent API logging.
- * Version: 0.4.4
+ * Version: 0.4.6
  * Requires at least: 6.0
  * Requires PHP: 7.4
  * Author: TruCookie
@@ -16,7 +16,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('TCS_VERSION', '0.4.4');
+define('TCS_VERSION', '0.4.6');
 define('TCS_PLUGIN_FILE', __FILE__);
 define('TCS_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('TCS_PLUGIN_URL', plugin_dir_url(__FILE__));
