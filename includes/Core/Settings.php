@@ -19,7 +19,7 @@ final class Settings
             'service_url' => 'https://trucookie.pro',
             'remote_banner_url' => '',
             'api_key' => '',
-            'log_path' => '/api/v1/consents/log',
+            'log_path' => '/api/consents',
             'forward_consent_logs' => '0',
             'collect_user_metadata' => '0',
             'remote_timeout_ms' => '3500',
@@ -27,6 +27,8 @@ final class Settings
             'debug' => '0',
             'regulation' => 'gdpr',
             'banner_language' => 'auto',
+            'site_public_id' => '',
+            'verification_token' => '',
             'geo_target' => 'worldwide',
             'color_scheme' => 'auto',
             'style' => 'bar',
@@ -37,6 +39,11 @@ final class Settings
             'revisit_button_text' => 'Privacy settings',
             'enable_script_blocker' => '1',
             'gcm_enabled' => '1',
+            'gcm_mode' => 'advanced',
+            'gcm_developer_id' => '',
+            'gcm_default_global' => 'denied',
+            'gcm_default_eea' => 'denied',
+            'gcm_default_us' => 'denied',
             'gcm_wait_for_update' => '500',
             'consent_expiry_days' => (string) self::DEFAULT_CONSENT_EXPIRY_DAYS,
         ];
@@ -136,7 +143,7 @@ final class Settings
         }
 
         $bannerLanguage = isset($input['banner_language']) ? sanitize_key((string) $input['banner_language']) : $current['banner_language'];
-        if (!in_array($bannerLanguage, ['auto', 'en', 'pl'], true)) {
+        if (!in_array($bannerLanguage, ['auto', 'en', 'pl', 'de'], true)) {
             $bannerLanguage = 'auto';
         }
 
@@ -164,6 +171,30 @@ final class Settings
         }
         if ($gcmWait > 5000) {
             $gcmWait = 5000;
+        }
+
+        $gcmMode = isset($input['gcm_mode']) ? sanitize_key((string) $input['gcm_mode']) : $current['gcm_mode'];
+        if (!in_array($gcmMode, ['advanced', 'basic'], true)) {
+            $gcmMode = 'advanced';
+        }
+
+        $gcmDeveloperId = isset($input['gcm_developer_id']) ? sanitize_text_field((string) $input['gcm_developer_id']) : $current['gcm_developer_id'];
+        $gcmDeveloperId = trim($gcmDeveloperId);
+        if ($gcmDeveloperId !== '' && !preg_match('/^[A-Za-z0-9_]{3,64}$/', $gcmDeveloperId)) {
+            $gcmDeveloperId = '';
+        }
+
+        $gcmDefaultGlobal = isset($input['gcm_default_global']) ? sanitize_key((string) $input['gcm_default_global']) : $current['gcm_default_global'];
+        if (!in_array($gcmDefaultGlobal, ['granted', 'denied'], true)) {
+            $gcmDefaultGlobal = 'denied';
+        }
+        $gcmDefaultEea = isset($input['gcm_default_eea']) ? sanitize_key((string) $input['gcm_default_eea']) : $current['gcm_default_eea'];
+        if (!in_array($gcmDefaultEea, ['granted', 'denied'], true)) {
+            $gcmDefaultEea = $gcmDefaultGlobal;
+        }
+        $gcmDefaultUs = isset($input['gcm_default_us']) ? sanitize_key((string) $input['gcm_default_us']) : $current['gcm_default_us'];
+        if (!in_array($gcmDefaultUs, ['granted', 'denied'], true)) {
+            $gcmDefaultUs = $gcmDefaultGlobal;
         }
 
         $consentExpiryDays = isset($input['consent_expiry_days']) ? (int) $input['consent_expiry_days'] : (int) $current['consent_expiry_days'];
@@ -198,6 +229,11 @@ final class Settings
             'revisit_button_text' => $revisitButtonText,
             'enable_script_blocker' => !empty($input['enable_script_blocker']) ? '1' : '0',
             'gcm_enabled' => !empty($input['gcm_enabled']) ? '1' : '0',
+            'gcm_mode' => $gcmMode,
+            'gcm_developer_id' => $gcmDeveloperId,
+            'gcm_default_global' => $gcmDefaultGlobal,
+            'gcm_default_eea' => $gcmDefaultEea,
+            'gcm_default_us' => $gcmDefaultUs,
             'gcm_wait_for_update' => (string) $gcmWait,
             'consent_expiry_days' => (string) $consentExpiryDays,
         ];

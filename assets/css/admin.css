@@ -102,6 +102,41 @@
   font-size: 12px;
 }
 
+.tcs-admin .tcs-plan-note p {
+  margin: 0;
+}
+
+.tcs-admin .tcs-plan-note p + p {
+  margin-top: 6px;
+}
+
+.tcs-admin .tcs-premium-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 8px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid #f6d56c;
+  background: #fff8dc;
+  color: #7a5800;
+  font-size: 11px;
+  font-weight: 700;
+  vertical-align: middle;
+}
+
+.tcs-admin .tcs-premium-badge-inline {
+  margin-left: 6px;
+}
+
+.tcs-admin .tcs-premium-star {
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  background: linear-gradient(180deg, #ffd86a 0%, #f4b000 100%);
+  clip-path: polygon(50% 0%, 61% 36%, 98% 36%, 67% 58%, 79% 95%, 50% 73%, 21% 95%, 33% 58%, 2% 36%, 39% 36%);
+}
+
 @media (max-width: 782px) {
   .tcs-admin .tcs-form-table th,
   .tcs-admin .tcs-form-table td {

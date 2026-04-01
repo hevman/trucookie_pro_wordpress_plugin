@@ -2,6 +2,10 @@
 
 namespace TruCookieCMP\Admin\Modules;
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 final class Onboarding
 {
     public const REDIRECT_OPTION_KEY = 'tcs_do_activation_redirect';
@@ -32,7 +36,7 @@ final class Onboarding
         }
 
         delete_option(self::REDIRECT_OPTION_KEY);
-        wp_safe_redirect(admin_url('admin.php?page=trucookie-cmp-stable&onboarding=1'));
+        wp_safe_redirect(admin_url('admin.php?page=trucookie-cmp-consent-mode-v2&onboarding=1'));
         exit;
     }
 }

@@ -21,8 +21,12 @@
   var revisitButtonId = "sc-cmp-revisit-button";
   var gcmConfig = cfg.gcm || {};
   var gcmEnabled = !!gcmConfig.enabled;
+  var gcmMode = String(gcmConfig.mode || "advanced").toLowerCase();
+  var gcmDeveloperId = String(gcmConfig.developerId || "");
+  var gcmDefaultConsent = (gcmConfig.defaultConsent && typeof gcmConfig.defaultConsent === "object") ? gcmConfig.defaultConsent : {};
   var gcmWaitForUpdate = parseInt(gcmConfig.waitForUpdate, 10);
   var scriptBlockerEnabled = cfg.enableScriptBlocker !== false;
+  var gcmRuntimeEnabled = gcmEnabled && gcmMode === "advanced";
 
   var legacyStorageKeys = Array.isArray(cfg.legacyStorageKeys) ? cfg.legacyStorageKeys : [];
   if (legacyStorageKeys.indexOf("sc_cmp_gcm_v2") < 0) {
@@ -49,18 +53,69 @@
     }
   }
 
-  function setupGcmDefault() {
-    if (!gcmEnabled) {
+  function sanitizeDeveloperId(raw) {
+    var value = String(raw || "").trim();
+    return /^[A-Za-z0-9_]{3,64}$/.test(value) ? value : "";
+  }
+
+  function normalizeConsentState(raw, fallback) {
+    var value = String(raw || "").toLowerCase();
+    if (value === "granted" || value === "allow" || value === "yes" || value === "1") {
+      return "granted";
+    }
+    if (value === "denied" || value === "deny" || value === "no" || value === "0") {
+      return "denied";
+    }
+    return fallback;
+  }
+
+  function applyDeveloperId() {
+    var developerId = sanitizeDeveloperId(gcmDeveloperId);
+    if (!developerId) {
       return;
     }
     ensureGtagStub();
+    window.gtag("set", "developer_id." + developerId, true);
+  }
+
+  function setupGcmDefault() {
+    if (!gcmRuntimeEnabled) {
+      return;
+    }
+    var defaultGlobal = normalizeConsentState(gcmDefaultConsent.global, "denied");
+    var defaultEea = normalizeConsentState(gcmDefaultConsent.eea, defaultGlobal);
+    var defaultUs = normalizeConsentState(gcmDefaultConsent.us, defaultGlobal);
+    var eeaRegionCodes = [
+      "AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "GR", "HU", "IE",
+      "IT", "LV", "LT", "LU", "MT", "NL", "PL", "PT", "RO", "SK", "SI", "ES", "SE", "IS",
+      "LI", "NO", "GB", "CH"
+    ];
+
+    ensureGtagStub();
     window.gtag("consent", "default", {
-      analytics_storage: "denied",
-      ad_storage: "denied",
-      ad_user_data: "denied",
-      ad_personalization: "denied",
+      analytics_storage: defaultEea,
+      ad_storage: defaultEea,
+      ad_user_data: defaultEea,
+      ad_personalization: defaultEea,
+      region: eeaRegionCodes,
       wait_for_update: gcmWaitForUpdate
     });
+    window.gtag("consent", "default", {
+      analytics_storage: defaultUs,
+      ad_storage: defaultUs,
+      ad_user_data: defaultUs,
+      ad_personalization: defaultUs,
+      region: ["US"],
+      wait_for_update: gcmWaitForUpdate
+    });
+    window.gtag("consent", "default", {
+      analytics_storage: defaultGlobal,
+      ad_storage: defaultGlobal,
+      ad_user_data: defaultGlobal,
+      ad_personalization: defaultGlobal,
+      wait_for_update: gcmWaitForUpdate
+    });
+    applyDeveloperId();
   }
 
   function resolveLocale() {
@@ -373,10 +428,11 @@
   }
 
   function applyGcmConsent(consent) {
-    if (!gcmEnabled) {
+    if (!gcmRuntimeEnabled) {
       return;
     }
     ensureGtagStub();
+    applyDeveloperId();
     window.gtag("consent", "update", {
       analytics_storage: consent.analytics ? "granted" : "denied",
       ad_storage: consent.marketing ? "granted" : "denied",
@@ -793,6 +849,13 @@
 
     logo = doc.createElement("img");
     logo.src = cfg.poweredByLogoUrl || "https://trucookie.pro/favicon.svg";
+    logo.onerror = function () {
+      if (cfg.poweredByLogoDataUrl && logo.src !== cfg.poweredByLogoDataUrl) {
+        logo.src = cfg.poweredByLogoDataUrl;
+        return;
+      }
+      logo.onerror = null;
+    };
     logo.alt = "TruCookie";
     logo.loading = "lazy";
     logo.decoding = "async";
@@ -802,7 +865,7 @@
     logo.style.objectFit = "contain";
     logo.style.display = "inline-block";
 
-    label = el("span", "Powered by TruCookie");
+    label = el("span", textValue("poweredByLabel", "Powered by TruCookie"));
     label.style.whiteSpace = "nowrap";
 
     link.appendChild(logo);
@@ -994,8 +1057,8 @@
     addLink(resolveUrl(cfg.cookiesUrl), textValue("cookiesLinkLabel", "Cookie Policy"));
     addLink(resolveUrl(cfg.privacyUrl), textValue("privacyLinkLabel", "Privacy Policy"));
     addLink(
-      resolveUrl(cfg.googleDataResponsibilityUrl || "https://business.safety.google/privacy/"),
-      textValue("googleDataResponsibilityLabel", "Google data responsibility")
+      resolveUrl(cfg.googleDataResponsibilityUrl),
+      textValue("googleDataResponsibilityLabel", "")
     );
 
     analyticsRow = makeToggleRow(
@@ -1162,10 +1225,10 @@
 
     applyBannerLayout(wrap);
 
-    title = el("div", textValue("title", "Cookies and privacy"));
+    title = el("div", textValue("title", "Privacy settings"));
     title.className = "tcs-banner__title";
 
-    body = el("div", textValue("body", "We use cookies to enhance your browsing experience, serve personalised ads or content, and analyse our traffic. By clicking \"Accept All\", you consent to our use of cookies."));
+    body = el("div", textValue("body", "We use cookies to operate the site, measure traffic, and improve content. You can accept all cookies, reject optional cookies, or manage your preferences."));
     body.className = "tcs-banner__body";
 
     disclaimer = el("div", textValue("disclaimer", ""));
@@ -1177,8 +1240,8 @@
     appendLink(resolveUrl(cfg.privacyUrl), textValue("privacyLinkLabel", "Privacy Policy"));
     appendLink(resolveUrl(cfg.cookiesUrl), textValue("cookiesLinkLabel", "Cookie Policy"));
     appendLink(
-      resolveUrl(cfg.googleDataResponsibilityUrl || "https://business.safety.google/privacy/"),
-      textValue("googleDataResponsibilityLabel", "Google data responsibility")
+      resolveUrl(cfg.googleDataResponsibilityUrl),
+      textValue("googleDataResponsibilityLabel", "")
     );
 
     actions = el("div");
@@ -1275,6 +1338,9 @@
           hasModalNode: !!doc.getElementById(modalId),
           hasRevisitNode: !!doc.getElementById(revisitButtonId),
           gcmEnabled: gcmEnabled,
+          gcmMode: gcmMode,
+          gcmRuntimeEnabled: gcmRuntimeEnabled,
+          gcmDeveloperIdConfigured: sanitizeDeveloperId(gcmDeveloperId) !== "",
           gcmWaitForUpdate: gcmWaitForUpdate,
           scriptBlocker: getScriptBlockerDiagnostics(),
           remoteScriptId: cfg.remoteScriptId || null
@@ -1366,6 +1432,9 @@
     var force;
 
     setupGcmDefault();
+    if (gcmEnabled) {
+      applyDeveloperId();
+    }
 
     if (resetRequested()) {
       clearStoredConsent();

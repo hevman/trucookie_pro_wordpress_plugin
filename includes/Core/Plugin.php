@@ -21,6 +21,9 @@ final class Plugin
     /** @var Frontend */
     private $frontend;
 
+    /** @var PlanSync */
+    private $planSync;
+
     /** @var Admin|null */
     private $admin = null;
 
@@ -46,12 +49,13 @@ final class Plugin
     private function init(): void
     {
         $this->settings = new Settings();
+        $this->planSync = new PlanSync();
         $this->logger = new ConsentLogger($this->settings);
         $this->frontend = new Frontend($this->settings);
 
         if (is_admin()) {
             $this->onboarding = new Onboarding();
-            $this->admin = new Admin($this->settings);
+            $this->admin = new Admin($this->settings, $this->planSync);
         }
     }
 }

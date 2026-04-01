@@ -99,6 +99,8 @@
   height: 16px;
   object-fit: contain;
   border-radius: 4px;
+  display: inline-block;
+  flex: 0 0 auto;
 }
 
 #sc-cmp-banner.tcs-banner.tcs-banner--bar {

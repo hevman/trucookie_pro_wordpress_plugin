@@ -4,7 +4,7 @@ Tags: cookie banner, consent, gdpr, privacy, google consent mode
 Requires at least: 6.0
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 0.4.6
+Stable tag: 0.4.8
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,7 +14,7 @@ Cookie banner for WordPress with local runtime, wp-consent-api bridge, Google Co
 
 TruCookie CMP Stable provides:
 
-* Cookie banner with English and Polish labels
+* Cookie banner with English, Polish, and German labels
 * GDPR / US mode switch
 * Google Consent Mode v2 defaults + updates
 * Optional script blocker by consent category
@@ -89,6 +89,20 @@ Default template guidance for Consent Mode without TCF:
 
 The admin UI recommends using this default template when enabling Consent Mode without TCF.
 
+== Support and SLA ==
+
+For Consent Mode matters, clients should contact TruCookie support first.
+
+Support channels:
+
+* Support form: https://trucookie.pro/contact-support
+* Support email: bok@trucookie.pro
+* Support center: https://trucookie.pro/contact-support
+
+Support commitment:
+
+* Initial response within 4 business days.
+
 == Installation ==
 
 1. Upload plugin folder to `/wp-content/plugins/` or install ZIP in wp-admin.
@@ -149,6 +163,23 @@ Privacy Policy: https://trucookie.pro/privacy
 1. TruCookie CMP settings screen in WordPress admin.
 
 == Changelog ==
+
+= 0.4.8 =
+
+* Added plugin textdomain loading bootstrap and declared `Domain Path`
+* Switched default powered-by logo asset from external TruCookie URL to bundled local plugin asset
+* Packaging cleanup for WordPress.org resubmission
+* Fixed connected-mode defaults for consent log endpoint and site sync flow
+* Added German labels to local plugin runtime
+
+= 0.4.7 =
+
+* WCAG contrast fixes in banner UI:
+  * updated default primary fallback from `#059669` to `#047857`
+  * added automatic primary button text color based on contrast ratio
+  * applied contrast-safe text for primary CTA and revisit button
+* Updated frontend default theme primary color to `#047857`
+* Version bump for asset cache busting (`banner.css` / `banner.js`)
 
 = 0.4.6 =
 

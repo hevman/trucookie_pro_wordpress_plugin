@@ -4,6 +4,10 @@ namespace TruCookieCMP\Frontend;
 
 use TruCookieCMP\Core\Settings;
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 final class Frontend
 {
     private const REMOTE_SCRIPT_ID = 'tcs-remote-banner';
@@ -17,8 +21,8 @@ final class Frontend
 
         add_action('init', [$this, 'load_banner_context']);
         add_action('wp_head', [$this, 'output_gcm_bootstrap'], 0);
+        add_action('wp_head', [$this, 'output_site_verification_meta'], 1);
         add_action('wp_enqueue_scripts', [$this, 'enqueue_scripts'], 1);
-        add_action('wp_head', [$this, 'output_connected_script'], 2);
     }
 
     public function load_banner_context(): void
@@ -34,21 +38,40 @@ final class Frontend
 
         wp_enqueue_style(
             'tcs-cmp-banner-style',
-            TCS_PLUGIN_URL . 'assets/css/banner.css',
+            TRUCOOKIE_CMP_PLUGIN_URL . 'assets/css/banner.css',
             [],
-            TCS_VERSION
+            TRUCOOKIE_CMP_VERSION
         );
 
         $handle = 'tcs-cmp-banner';
         wp_enqueue_script(
             $handle,
-            TCS_PLUGIN_URL . 'assets/js/banner.js',
+            TRUCOOKIE_CMP_PLUGIN_URL . 'assets/js/banner.js',
             [],
-            TCS_VERSION,
+            TRUCOOKIE_CMP_VERSION,
             false
         );
 
         wp_localize_script($handle, '_tcsConfig', $this->build_frontend_config());
+
+        if ($this->settings->is_connected_mode()) {
+            $remoteSrc = $this->settings->get_remote_banner_url();
+            if ($remoteSrc !== '') {
+                wp_register_script(
+                    self::REMOTE_SCRIPT_ID,
+                    esc_url_raw($remoteSrc),
+                    [],
+                    TRUCOOKIE_CMP_VERSION,
+                    false
+                );
+                wp_script_add_data(self::REMOTE_SCRIPT_ID, 'defer', true);
+                $nonce = function_exists('wp_get_script_nonce') ? (string) wp_get_script_nonce() : '';
+                if ($nonce !== '') {
+                    wp_script_add_data(self::REMOTE_SCRIPT_ID, 'nonce', $nonce);
+                }
+                wp_enqueue_script(self::REMOTE_SCRIPT_ID);
+            }
+        }
     }
 
     public function output_gcm_bootstrap(): void
@@ -59,6 +82,9 @@ final class Frontend
         if ($this->settings->get('gcm_enabled') !== '1') {
             return;
         }
+        if ($this->settings->get('gcm_mode') === 'basic') {
+            return;
+        }
 
         $wait = (int) $this->settings->get('gcm_wait_for_update');
         if ($wait < 0) {
@@ -67,35 +93,72 @@ final class Frontend
         if ($wait > 5000) {
             $wait = 5000;
         }
+        $defaultGlobal = $this->normalize_consent_state($this->settings->get('gcm_default_global'), 'denied');
+        $defaultEea = $this->normalize_consent_state($this->settings->get('gcm_default_eea'), $defaultGlobal);
+        $defaultUs = $this->normalize_consent_state($this->settings->get('gcm_default_us'), $defaultGlobal);
 
         $nonce = function_exists('wp_get_script_nonce') ? (string) wp_get_script_nonce() : '';
-        $nonceAttr = $nonce !== '' ? ' nonce="' . esc_attr($nonce) . '"' : '';
+        $developerId = trim((string) $this->settings->get('gcm_developer_id'));
+        $developerIdSet = '';
+        if ($developerId !== '' && preg_match('/^[A-Za-z0-9_]{3,64}$/', $developerId) === 1) {
+            $developerIdSet = "window.gtag('set','developer_id." . $developerId . "',true);";
+        }
+        $eeaPayload = wp_json_encode([
+            'analytics_storage' => $defaultEea,
+            'ad_storage' => $defaultEea,
+            'ad_user_data' => $defaultEea,
+            'ad_personalization' => $defaultEea,
+            'wait_for_update' => $wait,
+            'region' => $this->eea_region_codes(),
+        ]);
+        $usPayload = wp_json_encode([
+            'analytics_storage' => $defaultUs,
+            'ad_storage' => $defaultUs,
+            'ad_user_data' => $defaultUs,
+            'ad_personalization' => $defaultUs,
+            'wait_for_update' => $wait,
+            'region' => ['US'],
+        ]);
+        $globalPayload = wp_json_encode([
+            'analytics_storage' => $defaultGlobal,
+            'ad_storage' => $defaultGlobal,
+            'ad_user_data' => $defaultGlobal,
+            'ad_personalization' => $defaultGlobal,
+            'wait_for_update' => $wait,
+        ]);
+        if (!is_string($eeaPayload) || !is_string($usPayload) || !is_string($globalPayload)) {
+            return;
+        }
 
-        echo '<script id="tcs-gcm-bootstrap"' . $nonceAttr . '>'
-            . 'window.dataLayer=window.dataLayer||[];'
-            . 'window.gtag=window.gtag||function(){window.dataLayer.push(arguments);};'
-            . "window.gtag('consent','default',{analytics_storage:'denied',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',wait_for_update:" . $wait . '});'
-            . '</script>';
+        $script = 'window.dataLayer=window.dataLayer||[];';
+        $script .= 'window.gtag=window.gtag||function(){window.dataLayer.push(arguments);};';
+        $script .= "window.gtag('consent','default'," . $eeaPayload . ');';
+        $script .= "window.gtag('consent','default'," . $usPayload . ');';
+        $script .= "window.gtag('consent','default'," . $globalPayload . ');';
+        $script .= $developerIdSet;
+
+        $attributes = ['id' => 'tcs-gcm-bootstrap'];
+        if ($nonce !== '') {
+            $attributes['nonce'] = $nonce;
+        }
+        wp_print_inline_script_tag($script, $attributes);
     }
 
-    public function output_connected_script(): void
+    public function output_site_verification_meta(): void
     {
-        if (!$this->should_render_banner_front()) {
-            return;
-        }
-        if (!$this->settings->is_connected_mode()) {
+        if (is_admin()) {
             return;
         }
 
-        $src = $this->settings->get_remote_banner_url();
-        if ($src === '') {
+        $token = trim($this->settings->get('verification_token'));
+        if ($token === '') {
             return;
         }
 
-        $nonce = function_exists('wp_get_script_nonce') ? (string) wp_get_script_nonce() : '';
-        $nonceAttr = $nonce !== '' ? ' nonce="' . esc_attr($nonce) . '"' : '';
-
-        echo '<script id="' . esc_attr(self::REMOTE_SCRIPT_ID) . '" src="' . esc_url($src) . '"' . $nonceAttr . ' defer data-tcs-remote="1"></script>';
+        printf(
+            "<meta name=\"trucookie-site-verification\" content=\"%s\" />\n",
+            esc_attr($token)
+        );
     }
 
     /**
@@ -104,6 +167,10 @@ final class Frontend
     private function build_frontend_config(): array
     {
         $mode = $this->settings->is_connected_mode() ? 'connected' : 'local';
+        $gcmMode = $this->settings->get('gcm_mode');
+        if (!in_array($gcmMode, ['advanced', 'basic'], true)) {
+            $gcmMode = 'advanced';
+        }
 
         $privacyUrl = $this->resolve_privacy_policy_url();
         $cookiesUrl = $this->resolve_cookie_policy_url();
@@ -111,19 +178,20 @@ final class Frontend
         $locale = function_exists('determine_locale') ? (string) determine_locale() : (string) get_locale();
         $locale = strtolower($locale);
         $languageSetting = $this->settings->get('banner_language');
-        if (in_array($languageSetting, ['pl', 'en'], true)) {
+        if (in_array($languageSetting, ['pl', 'en', 'de'], true)) {
             $locale = $languageSetting;
         }
         $isPl = strpos($locale, 'pl') === 0;
+        $isDe = strpos($locale, 'de') === 0;
 
         $revisit = $this->settings->get('revisit_button_text');
         if ($revisit === '') {
-            $revisit = $isPl ? 'Ustawienia prywatnosci' : 'Privacy settings';
+            $revisit = $isPl ? 'Ustawienia prywatnosci' : ($isDe ? 'Datenschutzeinstellungen' : 'Privacy settings');
         }
 
         $labelsEn = [
-            'title' => 'Cookies & privacy',
-            'body' => 'We use cookies to enhance your browsing experience, serve personalised ads or content, and analyse our traffic. By clicking "Accept All", you consent to our use of cookies.',
+            'title' => 'Privacy settings',
+            'body' => 'We use cookies to operate the site, measure traffic, and improve content. You can accept all cookies, reject optional cookies, or manage your preferences.',
             'accept' => 'Accept All',
             'reject' => 'Essential only',
             'preferences' => 'Preferences',
@@ -134,22 +202,30 @@ final class Frontend
             'preferencesTitle' => 'Cookie preferences',
             'analyticsLabel' => 'Analytics',
             'marketingLabel' => 'Marketing',
-            'analyticsDescription' => 'Traffic measurement (Google Analytics).',
-            'marketingDescription' => 'Ads / remarketing (Google).',
-            'googleDataResponsibilityLabel' => 'Google data responsibility',
+            'analyticsDescription' => 'Audience measurement and site performance.',
+            'marketingDescription' => 'Marketing and advertising features.',
             'revisitButton' => $revisit,
-            'disclaimer' => 'Manage consent in Preferences. See Privacy Policy for details.',
+            'disclaimer' => 'You can change your choice at any time in Privacy settings.',
         ];
 
         /** @var array<string,string> $labelsPl */
         $labelsPl = (array) json_decode(
-            '{"title":"Cookies i prywatno\\u015b\\u0107","body":"U\\u017cywamy plik\\u00f3w cookie, aby ulepszy\\u0107 Twoje przegl\\u0105danie, wy\\u015bwietla\\u0107 spersonalizowane reklamy lub tre\\u015bci oraz analizowa\\u0107 ruch w serwisie. Klikaj\\u0105c \\\"Akceptuj wszystkie\\\", wyra\\u017casz zgod\\u0119 na u\\u017cywanie przez nas plik\\u00f3w cookie.","accept":"Akceptuj wszystkie","reject":"Tylko niezb\\u0119dne","preferences":"Preferencje","save":"Zapisz","close":"Zamknij","cookiesLinkLabel":"Polityka cookies","privacyLinkLabel":"Polityka prywatno\\u015bci","preferencesTitle":"Ustawienia cookies","analyticsLabel":"Analityka","marketingLabel":"Marketing","analyticsDescription":"Pomiar ruchu (Google Analytics).","marketingDescription":"Reklamy / remarketing (Google).","disclaimer":"Szczeg\\u00f3\\u0142y znajdziesz w Polityce cookies."}',
+            '{"title":"Ustawienia prywatno\\u015bci","body":"U\\u017cywamy plik\\u00f3w cookie, aby obs\\u0142ugiwa\\u0107 serwis, mierzy\\u0107 ruch i ulepsza\\u0107 tre\\u015bci. Mo\\u017cesz zaakceptowa\\u0107 wszystkie pliki cookie, odrzuci\\u0107 opcjonalne albo zarz\\u0105dza\\u0107 preferencjami.","accept":"Akceptuj wszystkie","reject":"Tylko niezb\\u0119dne","preferences":"Preferencje","save":"Zapisz","close":"Zamknij","cookiesLinkLabel":"Polityka cookies","privacyLinkLabel":"Polityka prywatno\\u015bci","preferencesTitle":"Ustawienia cookies","analyticsLabel":"Analityka","marketingLabel":"Marketing","analyticsDescription":"Pomiar ruchu i wydajno\\u015bci serwisu.","marketingDescription":"Funkcje marketingowe i reklamowe.","disclaimer":"Swoj\\u0105 decyzj\\u0119 mo\\u017cesz zmieni\\u0107 w dowolnym momencie w ustawieniach prywatno\\u015bci."}',
             true
         );
         $labelsPl['revisitButton'] = $revisit;
-        $labelsPl['googleDataResponsibilityLabel'] = 'Google - odpowiedzialnosc za dane';
 
-        $defaultLabels = $isPl ? $labelsPl : $labelsEn;
+        /** @var array<string,string> $labelsDe */
+        $labelsDe = (array) json_decode(
+            '{"title":"Datenschutzeinstellungen","body":"Wir verwenden Cookies, um die Website zu betreiben, den Traffic zu messen und Inhalte zu verbessern. Du kannst alle Cookies akzeptieren, optionale Cookies ablehnen oder deine Einstellungen verwalten.","accept":"Alle akzeptieren","reject":"Nur notwendige","preferences":"Einstellungen","save":"Speichern","close":"Schliessen","cookiesLinkLabel":"Cookie-Richtlinie","privacyLinkLabel":"Datenschutzerklarung","preferencesTitle":"Cookie-Einstellungen","analyticsLabel":"Analyse","marketingLabel":"Marketing","analyticsDescription":"Reichweitenmessung und Website-Performance.","marketingDescription":"Marketing- und Werbefunktionen.","disclaimer":"Du kannst deine Entscheidung jederzeit in den Datenschutzeinstellungen andern."}',
+            true
+        );
+        $labelsDe['revisitButton'] = $revisit;
+
+        $defaultLabels = $isPl ? $labelsPl : ($isDe ? $labelsDe : $labelsEn);
+        $gcmDefaultGlobal = $this->normalize_consent_state($this->settings->get('gcm_default_global'), 'denied');
+        $gcmDefaultEea = $this->normalize_consent_state($this->settings->get('gcm_default_eea'), $gcmDefaultGlobal);
+        $gcmDefaultUs = $this->normalize_consent_state($this->settings->get('gcm_default_us'), $gcmDefaultGlobal);
 
         return [
             'bannerEnabled' => $this->settings->is_banner_enabled(),
@@ -169,32 +245,43 @@ final class Frontend
             'resetParams' => ['tcs_reset_consent', 'sc_reset_consent'],
             'cookiesUrl' => $cookiesUrl,
             'privacyUrl' => $privacyUrl,
-            'googleDataResponsibilityUrl' => 'https://business.safety.google/privacy/',
+            'googleDataResponsibilityUrl' => '',
             'restUrl' => esc_url_raw(rest_url('trucookie-cmp/v1/consent')),
             'style' => $this->settings->get('style'),
             'colorScheme' => $this->settings->get('color_scheme'),
             'autoTheme' => true,
             'showPoweredBy' => $this->settings->get('show_powered_by') === '1',
             'poweredByUrl' => 'https://trucookie.pro',
-            'poweredByLogoUrl' => 'https://trucookie.pro/favicon.svg',
+            'poweredByLogoUrl' => TRUCOOKIE_CMP_PLUGIN_URL . 'assets/image/favicon.svg',
+            'poweredByLogoDataUrl' => $this->build_local_logo_data_url(),
             'showDeclineButton' => $this->settings->get('show_decline_button') === '1',
             'showPreferencesButton' => $this->settings->get('show_preferences_button') === '1',
             'showRevisitButton' => $this->settings->get('show_revisit_button') === '1',
             'revisitButtonText' => $revisit,
-            'enableScriptBlocker' => $this->settings->get('enable_script_blocker') === '1',
+            'enableScriptBlocker' => $gcmMode === 'basic'
+                ? true
+                : ($this->settings->get('enable_script_blocker') === '1'),
             'consentExpiryDays' => $this->settings->get_consent_expiry_days(),
             'gcm' => [
                 'enabled' => $this->settings->get('gcm_enabled') === '1',
+                'mode' => $gcmMode,
+                'developerId' => $this->settings->get('gcm_developer_id'),
                 'waitForUpdate' => (int) $this->settings->get('gcm_wait_for_update'),
+                'defaultConsent' => [
+                    'global' => $gcmDefaultGlobal,
+                    'eea' => $gcmDefaultEea,
+                    'us' => $gcmDefaultUs,
+                ],
             ],
             'theme' => [
                 'primary' => '#047857',
                 'background' => '#ffffff',
             ],
-            'locale' => $isPl ? 'pl' : 'en',
+            'locale' => $isPl ? 'pl' : ($isDe ? 'de' : 'en'),
             'labelsByLocale' => [
                 'en' => $labelsEn,
                 'pl' => $labelsPl,
+                'de' => $labelsDe,
             ],
             'labels' => $defaultLabels,
         ];
@@ -291,6 +378,21 @@ final class Frontend
         return wp_http_validate_url($url) !== false;
     }
 
+    private function build_local_logo_data_url(): string
+    {
+        $logoPath = TRUCOOKIE_CMP_PLUGIN_DIR . 'assets/image/favicon.svg';
+        if (!is_readable($logoPath)) {
+            return '';
+        }
+
+        $raw = @file_get_contents($logoPath);
+        if (!is_string($raw) || $raw === '') {
+            return '';
+        }
+
+        return 'data:image/svg+xml;utf8,' . rawurlencode($raw);
+    }
+
     private function should_render_banner_front(): bool
     {
         if (is_admin() || !$this->settings->is_banner_enabled()) {
@@ -316,12 +418,36 @@ final class Frontend
         return in_array($country, $this->eu_uk_country_codes(), true);
     }
 
+    private function normalize_consent_state(string $value, string $fallback): string
+    {
+        $value = strtolower(trim($value));
+        if ($value === 'granted') {
+            return 'granted';
+        }
+        if ($value === 'denied') {
+            return 'denied';
+        }
+
+        return $fallback === 'granted' ? 'granted' : 'denied';
+    }
+
+    /**
+     * @return string[]
+     */
+    private function eea_region_codes(): array
+    {
+        return [
+            'AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU', 'IE', 'IT', 'LV', 'LT',
+            'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE', 'IS', 'LI', 'NO', 'GB', 'CH',
+        ];
+    }
+
     private function detect_country_code(): string
     {
         $candidates = [
-            isset($_SERVER['HTTP_CF_IPCOUNTRY']) ? (string) $_SERVER['HTTP_CF_IPCOUNTRY'] : '',
-            isset($_SERVER['GEOIP_COUNTRY_CODE']) ? (string) $_SERVER['GEOIP_COUNTRY_CODE'] : '',
-            isset($_SERVER['HTTP_X_COUNTRY_CODE']) ? (string) $_SERVER['HTTP_X_COUNTRY_CODE'] : '',
+            $this->read_server_value('HTTP_CF_IPCOUNTRY'),
+            $this->read_server_value('GEOIP_COUNTRY_CODE'),
+            $this->read_server_value('HTTP_X_COUNTRY_CODE'),
         ];
 
         foreach ($candidates as $candidate) {
@@ -332,6 +458,15 @@ final class Frontend
         }
 
         return '';
+    }
+
+    private function read_server_value(string $key): string
+    {
+        if (!isset($_SERVER[$key])) {
+            return '';
+        }
+
+        return sanitize_text_field(wp_unslash((string) $_SERVER[$key]));
     }
 
     /**

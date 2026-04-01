@@ -8,6 +8,10 @@ use WP_REST_Request;
 use WP_REST_Response;
 use WP_REST_Server;
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 final class ConsentLogger
 {
     /** @var Settings */
@@ -65,12 +69,12 @@ final class ConsentLogger
             'referrer' => isset($payload['referrer']) ? esc_url_raw((string) $payload['referrer']) : '',
             'consent' => $consent,
             'source' => 'wordpress-plugin',
-            'plugin_version' => defined('TCS_VERSION') ? (string) TCS_VERSION : 'unknown',
+            'plugin_version' => defined('TRUCOOKIE_CMP_VERSION') ? (string) TRUCOOKIE_CMP_VERSION : 'unknown',
             'created_at' => gmdate('c'),
         ];
 
         if ($this->settings->is_user_metadata_collection_enabled()) {
-            $event['user_agent'] = isset($_SERVER['HTTP_USER_AGENT']) ? substr((string) $_SERVER['HTTP_USER_AGENT'], 0, 512) : '';
+            $event['user_agent'] = substr($this->read_http_user_agent(), 0, 512);
             $event['ip_hint'] = $this->get_client_ip_hint();
         }
 
@@ -232,15 +236,15 @@ final class ConsentLogger
     private function get_client_ip_hint(): string
     {
         $candidates = [
-            isset($_SERVER['HTTP_CF_CONNECTING_IP']) ? (string) $_SERVER['HTTP_CF_CONNECTING_IP'] : '',
-            isset($_SERVER['HTTP_X_FORWARDED_FOR']) ? (string) $_SERVER['HTTP_X_FORWARDED_FOR'] : '',
-            isset($_SERVER['REMOTE_ADDR']) ? (string) $_SERVER['REMOTE_ADDR'] : '',
+            $this->read_server_header('HTTP_CF_CONNECTING_IP'),
+            $this->read_server_header('HTTP_X_FORWARDED_FOR'),
+            $this->read_server_header('REMOTE_ADDR'),
         ];
 
         foreach ($candidates as $candidate) {
             $parts = explode(',', $candidate);
             foreach ($parts as $part) {
-                $ip = trim($part);
+                $ip = sanitize_text_field(trim($part));
                 if ($ip === '') {
                     continue;
                 }
@@ -251,6 +255,21 @@ final class ConsentLogger
         }
 
         return '';
+    }
+
+    private function read_http_user_agent(): string
+    {
+        return $this->read_server_header('HTTP_USER_AGENT');
+    }
+
+    private function read_server_header(string $name): string
+    {
+        $value = filter_input(INPUT_SERVER, $name, FILTER_UNSAFE_RAW);
+        if (!is_string($value)) {
+            return '';
+        }
+
+        return sanitize_text_field(wp_unslash($value));
     }
 
     private function is_rate_limited(): bool
